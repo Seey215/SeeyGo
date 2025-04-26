@@ -279,100 +279,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* 顶部导航栏 */}
-      <header className="h-16 bg-blue-600 text-white flex items-center px-6 fixed top-0 left-0 right-0 z-50">
-        {/* <header className="h-16 bg-blue-600 text-white flex items-center px-6 fixed top-0 left-0 right-0 z-50"> */}
-        <div className="flex items-center mr-8">
-          {isLoggedIn ? (
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600">
-              <UserOutlined className="text-xl" />
-            </div>
-          ) : (
-            <div className="text-xl font-bold">SeeyGo</div>
-          )}
-        </div>
-
-        <div className="flex-1 max-w-2xl">
-          <Input
-            placeholder="搜索..."
-            className="!rounded-button"
-            addonBefore={
-              <Select
-                value={searchEngine}
-                onChange={setSearchEngine}
-                bordered={false}
-                className="w-24"
-              >
-                <Select.Option value="Google">Google</Select.Option>
-                <Select.Option value="Bing">Bing</Select.Option>
-              </Select>
-            }
-            suffix={
-              <button className="text-gray-500 hover:text-blue-500">
-                <i className="fas fa-search" />
-              </button>
-            }
-          />
-        </div>
-
-        <div className="ml-8 flex items-center space-x-6">
-          <button className="text-xl">
-            <QuestionCircleOutlined />
-          </button>
-          <button className="text-xl">
-            <NotificationOutlined />
-          </button>
-          <Button
-            type="text"
-            className="!text-white"
-            onClick={() => setIsLoggedIn(!isLoggedIn)}
-          >
-            {isLoggedIn ? '退出登录' : '登录'}
-          </Button>
-        </div>
-      </header>
-
       {/* 主体内容 */}
-      <div className="flex flex-1 pt-20">
-        {/* 左侧菜单栏 */}
-        <nav className="w-56 bg-white border-r flex flex-col">
-          <div className="p-4 border-b">
-            <div className="text-lg font-medium">导航菜单</div>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <div className="space-y-1 p-2">
-              <button
-                className={`flex items-center w-full p-3 rounded-button ${
-                  activeMenu === 'home' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveMenu('home')}
-              >
-                <HomeOutlined className="mr-3" />
-                <span>首页</span>
-              </button>
-              <button
-                className={`flex items-center w-full p-3 rounded-button ${
-                  activeMenu === 'todo' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveMenu('todo')}
-              >
-                {/* <i className="fas fa-tasks mr-3" /> */}
-                <CheckSquareOutlined className="mr-3" />
-                <span>待办事项</span>
-              </button>
-              <button
-                className={`flex items-center w-full p-3 rounded-button ${
-                  activeMenu === 'doc' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveMenu('doc')}
-              >
-                <BookOutlined className="mr-3" />
-                <span>文档</span>
-              </button>
-            </div>
-          </div>
-        </nav>
-
+      <div className="flex flex-1 pt-10">
         {/* 内容区 */}
         <main className="flex-1 bg-gray-50">
           {activeMenu === 'home' && (
@@ -384,17 +292,8 @@ const App: React.FC = () => {
               {renderContent()}
             </div>
           )}
-          {activeMenu !== 'home' && renderContent()}
         </main>
       </div>
-
-      {/* 底部 Footer */}
-      {/* <footer className="h-10 bg-gray-100 border-t flex items-center justify-center text-gray-600 text-sm">
-        © 2023 SeeyGo - 高效工作平台
-      </footer> */}
-      <footer className="h-10 bg-gray-100 border-t flex items-center justify-center text-gray-600 text-sm">
-  © {new Date().getFullYear()} SeeyGo - 高效工作平台
-</footer>
     </div>
   );
 };
