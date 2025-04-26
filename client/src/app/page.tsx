@@ -1,9 +1,17 @@
-// 代码已包含 CSS：使用 TailwindCSS , 安装 TailwindCSS 后方可看到布局样式效果
-'use client'
+'use client';
 import React, { useState } from 'react';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
-import { BookOutlined, HomeOutlined, NotificationOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  BookOutlined,
+  CheckSquareOutlined,
+  HomeOutlined,
+  NotificationOutlined,
+  QuestionCircleOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Button, Card, Input, Select, Space, Table, Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 
@@ -109,7 +117,10 @@ const App: React.FC = () => {
             {/* 主内容区 */}
             <div className="flex-1">
               {/* Todo 卡片 */}
-              <Card title="待办事项" className="mb-6">
+              <Card
+                title="待办事项"
+                className="mb-6"
+              >
                 <Table
                   dataSource={todoData}
                   columns={[
@@ -125,7 +136,7 @@ const App: React.FC = () => {
               {/* 最近文档 */}
               <Card title="最近文档">
                 <div className="space-y-4">
-                  {recentDocs.map((doc) => (
+                  {recentDocs.map(doc => (
                     <div
                       key={doc.title}
                       className="flex items-center justify-between p-3 hover:bg-gray-50 cursor-pointer"
@@ -145,9 +156,12 @@ const App: React.FC = () => {
             {/* 辅助内容区 */}
             <div className="w-80">
               {/* 网址导航 */}
-              <Card title="常用网址" className="mb-6">
+              <Card
+                title="常用网址"
+                className="mb-6"
+              >
                 <div className="grid grid-cols-3 gap-3">
-                  {bookmarkData.map((bookmark) => (
+                  {bookmarkData.map(bookmark => (
                     <a
                       key={bookmark.name}
                       href={bookmark.url}
@@ -174,9 +188,7 @@ const App: React.FC = () => {
                 >
                   {announcements.map((announcement, index) => (
                     <SwiperSlide key={index}>
-                      <div className="h-full flex items-center p-4 bg-gray-50 rounded-button">
-                        {announcement}
-                      </div>
+                      <div className="h-full flex items-center p-4 bg-gray-50 rounded-button">{announcement}</div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -221,6 +233,15 @@ const App: React.FC = () => {
           <div className="flex-1 flex">
             {/* 文档目录 */}
             <div className="w-64 p-4 border-r">
+              {/* <Tree
+                treeData={docTreeData}
+                onSelect={(selectedKeys, { node }) => {
+                  if (!node.children) {
+                    setSelectedDoc(node.title as string);
+                  }
+                }}
+                defaultExpandAll
+              /> */}
               <Tree
                 treeData={docTreeData}
                 onSelect={(selectedKeys, { node }) => {
@@ -228,6 +249,7 @@ const App: React.FC = () => {
                     setSelectedDoc(node.title as string);
                   }
                 }}
+                selectedKeys={selectedDoc ? [selectedDoc] : []}
                 defaultExpandAll
               />
             </div>
@@ -245,9 +267,7 @@ const App: React.FC = () => {
                   </div>
                 </Card>
               ) : (
-                <div className="flex items-center justify-center h-full text-gray-500">
-                  请从左侧选择文档
-                </div>
+                <div className="flex items-center justify-center h-full text-gray-500">请从左侧选择文档</div>
               )}
             </div>
           </div>
@@ -261,13 +281,14 @@ const App: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       {/* 顶部导航栏 */}
       <header className="h-16 bg-blue-600 text-white flex items-center px-6 fixed top-0 left-0 right-0 z-50">
+        {/* <header className="h-16 bg-blue-600 text-white flex items-center px-6 fixed top-0 left-0 right-0 z-50"> */}
         <div className="flex items-center mr-8">
           {isLoggedIn ? (
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600">
               <UserOutlined className="text-xl" />
             </div>
           ) : (
-            <div className="text-xl font-bold">WorkSpace</div>
+            <div className="text-xl font-bold">SeeyGo</div>
           )}
         </div>
 
@@ -312,7 +333,7 @@ const App: React.FC = () => {
       </header>
 
       {/* 主体内容 */}
-      <div className="flex flex-1 pt-16">
+      <div className="flex flex-1 pt-20">
         {/* 左侧菜单栏 */}
         <nav className="w-56 bg-white border-r flex flex-col">
           <div className="p-4 border-b">
@@ -321,21 +342,28 @@ const App: React.FC = () => {
           <div className="flex-1 overflow-y-auto">
             <div className="space-y-1 p-2">
               <button
-                className={`flex items-center w-full p-3 rounded-button ${activeMenu === 'home' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}
+                className={`flex items-center w-full p-3 rounded-button ${
+                  activeMenu === 'home' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
+                }`}
                 onClick={() => setActiveMenu('home')}
               >
                 <HomeOutlined className="mr-3" />
                 <span>首页</span>
               </button>
               <button
-                className={`flex items-center w-full p-3 rounded-button ${activeMenu === 'todo' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}
+                className={`flex items-center w-full p-3 rounded-button ${
+                  activeMenu === 'todo' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
+                }`}
                 onClick={() => setActiveMenu('todo')}
               >
-                <i className="fas fa-tasks mr-3" />
+                {/* <i className="fas fa-tasks mr-3" /> */}
+                <CheckSquareOutlined className="mr-3" />
                 <span>待办事项</span>
               </button>
               <button
-                className={`flex items-center w-full p-3 rounded-button ${activeMenu === 'doc' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}
+                className={`flex items-center w-full p-3 rounded-button ${
+                  activeMenu === 'doc' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
+                }`}
                 onClick={() => setActiveMenu('doc')}
               >
                 <BookOutlined className="mr-3" />
@@ -350,7 +378,7 @@ const App: React.FC = () => {
           {activeMenu === 'home' && (
             <div className="p-6">
               <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-button mb-6">
-                <h1 className="text-2xl font-bold">Hi，欢迎来到 WorkSpace</h1>
+                <h1 className="text-2xl font-bold">Hi，欢迎来到 SeeyGo</h1>
                 <p className="mt-2">高效工作，从这里开始</p>
               </div>
               {renderContent()}
@@ -361,12 +389,14 @@ const App: React.FC = () => {
       </div>
 
       {/* 底部 Footer */}
+      {/* <footer className="h-10 bg-gray-100 border-t flex items-center justify-center text-gray-600 text-sm">
+        © 2023 SeeyGo - 高效工作平台
+      </footer> */}
       <footer className="h-10 bg-gray-100 border-t flex items-center justify-center text-gray-600 text-sm">
-        © 2023 WorkSpace - 高效工作平台
-      </footer>
+  © {new Date().getFullYear()} SeeyGo - 高效工作平台
+</footer>
     </div>
   );
 };
 
 export default App;
-
