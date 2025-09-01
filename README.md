@@ -1,6 +1,8 @@
 # SeeyGo
 探索、记录、行动，从这里出发。Explore, Record and Act from here.
 
+diff: from `test/new-branch`
+
 ## 模块划分
 
 ### 1 ToDo List + KnowledgeBase + 网址导航（TodoList显示图标）
