@@ -2,7 +2,10 @@
 探索、记录、行动，从这里出发。Explore, Record and Act from here.
 
 diff: from `test/new-branch`
+
 diff2: from `test/new-branch`
+
+diff3: from `test/new-branch`
 
 ## 模块划分
 
