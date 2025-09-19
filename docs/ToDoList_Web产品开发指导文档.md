@@ -451,7 +451,7 @@ Hono 是一个用于构建 Web 应用程序的超快速、轻量级、边缘友�
 
 ### 4.1 项目代码文件夹结构设计
 
-一个清晰、可维护的项目结构是成功开发的基础。对于我们的 ToDoList 应用，我们需要设计一个既适合 Next.js 框架，又能为后续引入后端和 LLM API 阶段提供良好扩展性的项目结构。
+一个清晰、可维护的项目结构是成功开发的基础。对于我们的 ToDoList 应用，我们需要设计一个既适合 Next.js 框架，又能为后续功能扩展提供良好扩展性的项目结构。
 
 **4.1.1 当前项目结构**
 
@@ -472,7 +472,7 @@ todolist-app/
 ├── docs/                        # 项目文档目录
 │   └── ToDoList_Web产品开发指导文档.md  # 项目开发指导文档
 ├── package.json                 # 项目依赖配置
-├── package-lock.json            # 依赖锁定文件 (或 pnpm-lock.yaml)
+├── pnpm-lock.yaml               # pnpm 依赖锁定文件
 ├── tsconfig.json                # TypeScript 配置
 ├── next.config.ts               # Next.js 配置
 ├── postcss.config.mjs           # PostCSS 配置
@@ -484,7 +484,7 @@ todolist-app/
 
 当前项目使用 Next.js App Router 结构，这是 Next.js 13+ 推荐的项目结构方式。App Router 提供了更好的布局复用、服务端组件支持和更直观的路由系统。
 
-**4.1.2 前端源代码结构规划**
+**4.1.2 规划的前端源代码结构**
 
 随着项目的进展，我们将按照以下结构组织代码：
 
@@ -497,51 +497,21 @@ src/
 │   │   ├── page.tsx             # 任务列表页面
 │   │   └── [id]/                # 动态路由
 │   │       └── page.tsx         # 任务详情页面
-│   ├── components/              # 共享组件
-│   │   ├── ui/                  # 基础 UI 组件
-│   │   ├── layout/              # 布局组件
-│   │   └── features/            # 功能组件
-│   ├── hooks/                   # 自定义 React Hooks
-│   ├── lib/                     # 工具库和业务逻辑
-│   ├── styles/                  # 样式文件
-│   └── types/                   # TypeScript 类型定义
+│   └── components/              # 共享组件
+│       ├── ui/                  # 基础 UI 组件
+│       ├── layout/              # 布局组件
+│       └── features/            # 功能组件
+├── lib/                         # 工具库和业务逻辑
+│   ├── storage.ts               # 本地存储封装
+│   └── utils.ts                 # 通用工具函数
+├── hooks/                       # 自定义 React Hooks
+│   └── useTasks.ts              # 任务管理 Hook
+├── styles/                      # 样式文件
+└── types/                       # TypeScript 类型定义
 ├── public/                      # 静态资源目录
 ```
 
-or
-
-```
-/todolist
- ├─ app/                    # Next.js App Router 根目录
- │   ├─ layout.tsx          # 全局布局（含侧边栏+主体容器）
- │   ├─ page.tsx            # 默认主页（全部任务）
- │   ├─ tasks/              # 任务相关路由
- │   │   ├─ [group]/page.tsx  # 分组任务页面
- │   └─ api/                # 未来扩展后端（Next API Routes）
- │       └─ tasks/route.ts  # 任务API (预留，不实现)
- │
- ├─ components/             # UI组件
- │   ├─ Sidebar.tsx
- │   ├─ TaskCard.tsx
- │   ├─ TaskModal.tsx
- │   └─ Header.tsx (可选)
- │
- ├─ lib/                    # 工具库
- │   ├─ storage.ts          # LocalStorage 封装
- │   ├─ schema.ts           # zodSchema（任务数据校验）
- │
- ├─ hooks/                  # 自定义hooks
- │   └─ useTasks.ts
- │
- ├─ styles/                 # 全局样式
- │   └─ globals.css
- │
- ├─ tests/ (可选)           # 单元测试
- │
- └─ package.json
-```
-
-这种结构基于 Next.js App Router 的最佳实践，充分利用了其文件系统路由的优势。
+这种结构基于 Next.js App Router 的最佳实践，充分利用了其文件系统路由的优势。我们将组件按照功能进行分类组织，便于维护和复用。
 
 ### 4.2 开发环境搭建指南
 
@@ -551,7 +521,7 @@ or
 
 **Node.js：** 版本 18.17 或更高。推荐使用 Node.js 的 LTS（长期支持）版本，以确保稳定性和兼容性。
 
-**包管理器：** npm、yarn 或 pnpm。当前项目使用 pnpm。
+**包管理器：** 使用 pnpm 作为包管理器，当前项目已配置。
 
 **代码编辑器：** 推荐使用 Visual Studio Code，并安装相关扩展：ES7+ React/Redux/React-Native snippets、TypeScript Importer、Biome、Tailwind CSS IntelliSense。
 
@@ -576,6 +546,8 @@ npx create-next-app@latest . --typescript --tailwind --biome --src-dir --app --i
 **TypeScript：** JavaScript 的超集，提供静态类型检查，提高代码质量和开发体验。
 
 **Tailwind CSS：** 实用优先的 CSS 框架，提供原子化的 CSS 类，加快 UI 开发速度。
+
+**Shadcn UI:** Shadcn UI。
 
 **Biome：** 代码格式化和 linting 工具，替代 ESLint 和 Prettier，提供更快的性能。
 

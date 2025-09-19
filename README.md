@@ -1,32 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SeeyGo Todo - 智能待办事项管理应用
 
-## Getting Started
+基于 Next.js 15.5.2 + React 19 + TypeScript 构建的现代化待办事项管理应用。
 
-First, run the development server:
+## 🚀 功能特性
+
+### 核心功能
+- ✅ **任务管理** - 创建、编辑、删除、完成任务
+- ✅ **分类系统** - 自定义分类，颜色标识
+- ✅ **标签管理** - 灵活的标签系统
+- ✅ **优先级设置** - 高、中、低三个优先级
+- ✅ **截止日期** - 设置任务截止时间
+- ✅ **搜索过滤** - 实时搜索和多维度过滤
+- ✅ **排序功能** - 多种排序方式
+- ✅ **数据持久化** - 基于 localStorage 的本地存储
+
+### 界面特性
+- 🎨 **响应式设计** - 支持桌面、平板、移动端
+- 🎯 **直观的用户界面** - 清晰的视觉层次
+- ⚡ **流畅的交互** - 优雅的动画过渡
+- 🔄 **实时更新** - 状态实时同步
+
+## 🛠️ 技术栈
+
+- **前端框架**: Next.js 15.5.2 (App Router)
+- **UI 库**: React 19.1.0
+- **类型系统**: TypeScript ^5
+- **样式方案**: Tailwind CSS ^4
+- **状态管理**: Context API + useReducer
+- **代码质量**: Biome 2.2.0
+- **构建工具**: Turbopack
+- **字体优化**: next/font (Geist 字体)
+
+## 🚦 快速开始
+
+### 环境要求
+- Node.js 18+
+- npm 或 pnpm
+
+### 安装依赖
+```bash
+npm install
+# 或
+pnpm install
+```
+
+### 启动开发服务器
 
 ```bash
 pnpm dev
-# or
-bun dev
+# 或
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+应用将在 [http://localhost:3000](http://localhost:3000) 启动。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 构建生产版本
+```bash
+npm run build
+# 或
+pnpm build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📋 使用指南
 
-## Learn More
+### 基本操作
+1. **创建任务** - 点击「+ 新建任务」按钮
+2. **编辑任务** - 点击任务项的编辑按钮
+3. **完成任务** - 点击任务前的复选框
+4. **删除任务** - 点击任务项的删除按钮
 
-To learn more about Next.js, take a look at the following resources:
+### 高级功能
+1. **分类管理** - 在侧边栏分类区域点击「管理」
+2. **搜索过滤** - 使用顶部搜索栏和过滤按钮
+3. **排序任务** - 使用排序选择器
+4. **查看不同视图** - 点击侧边栏的导航项
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 页面功能
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **所有任务** (`/`) - 显示所有未完成的任务
+- **今日任务** (`/today`) - 显示今天截止的任务
+- **重要任务** (`/important`) - 显示高优先级和即将到期的任务
+- **已完成** (`/completed`) - 显示已完成的任务
+- **分类任务** (`/category/[id]`) - 显示特定分类的任务
+- **设置** (`/settings`) - 应用设置（待实现）
 
-## Deploy on Vercel
+## 💾 数据存储
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+应用使用 localStorage 进行数据持久化，包括：
+- 任务数据  
+- 分类信息
+- 用户设置
+- 界面状态
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+数据会自动保存，刷新页面后仍然保留。
+
+## 📄 许可证
+
+MIT License
