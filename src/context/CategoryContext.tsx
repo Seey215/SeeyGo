@@ -41,7 +41,7 @@ function categoryReducer(state: CategoryState, action: CategoryAction): Category
       return {
         ...state,
         categories: state.categories.map(category =>
-          category.id === action.payload.id ? action.payload : category
+          category.id === action.payload.id ? action.payload : category,
         ),
       };
 
@@ -58,15 +58,15 @@ function categoryReducer(state: CategoryState, action: CategoryAction): Category
 
 // 序列化分类数据
 function serializeCategories(categories: Category[]): any[] {
-  return categories.map(category => 
-    serializer.serializeWithDates(category, ['createdAt', 'updatedAt'])
+  return categories.map(category =>
+    serializer.serializeWithDates(category, ['createdAt', 'updatedAt']),
   );
 }
 
 // 反序列化分类数据
 function deserializeCategories(data: any[]): Category[] {
-  return data.map(category => 
-    serializer.deserializeWithDates(category, ['createdAt', 'updatedAt'])
+  return data.map(category =>
+    serializer.deserializeWithDates(category, ['createdAt', 'updatedAt']),
   );
 }
 
@@ -111,8 +111,6 @@ export function CategoryProvider({ children }: CategoryProviderProps) {
   }, [state.categories]);
 
   return (
-    <CategoryContext.Provider value={{ state, dispatch }}>
-      {children}
-    </CategoryContext.Provider>
+    <CategoryContext.Provider value={{ state, dispatch }}>{children}</CategoryContext.Provider>
   );
 }

@@ -12,11 +12,11 @@ interface TaskListProps {
   emptyIcon?: string;
 }
 
-export function TaskList({ 
-  tasks, 
-  loading = false, 
+export function TaskList({
+  tasks,
+  loading = false,
   emptyMessage = '暂无任务',
-  emptyIcon = '📝'
+  emptyIcon = '📝',
 }: TaskListProps) {
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
   const [showTaskModal, setShowTaskModal] = useState(false);
@@ -59,12 +59,8 @@ export function TaskList({
         <div className="text-gray-400 mb-4">
           <span className="text-6xl">{emptyIcon}</span>
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
-          {emptyMessage}
-        </h3>
-        <p className="text-gray-500 mb-6">
-          开始创建你的第一个任务吧
-        </p>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">{emptyMessage}</h3>
+        <p className="text-gray-500 mb-6">开始创建你的第一个任务吧</p>
       </div>
     );
   }
@@ -72,21 +68,13 @@ export function TaskList({
   return (
     <>
       <div className="space-y-3">
-        {tasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onEdit={handleEditTask}
-          />
+        {tasks.map(task => (
+          <TaskItem key={task.id} task={task} onEdit={handleEditTask} />
         ))}
       </div>
 
       {/* 任务编辑模态框 */}
-      <TaskFormModal
-        isOpen={showTaskModal}
-        onClose={handleCloseModal}
-        task={editingTask}
-      />
+      <TaskFormModal isOpen={showTaskModal} onClose={handleCloseModal} task={editingTask} />
     </>
   );
 }

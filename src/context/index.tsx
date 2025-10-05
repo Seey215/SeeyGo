@@ -16,9 +16,7 @@ export function AppProviders({ children }: AppProvidersProps) {
   return (
     <AppStateProvider>
       <CategoryProvider>
-        <TaskProvider>
-          {children}
-        </TaskProvider>
+        <TaskProvider>{children}</TaskProvider>
       </CategoryProvider>
     </AppStateProvider>
   );

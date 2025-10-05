@@ -12,7 +12,7 @@ import { SortSelector } from '@/components/filters';
 export function Navbar() {
   const pathname = usePathname();
   const [showFilterPanel, setShowFilterPanel] = useState(false);
-  
+
   // 根据路径获取页面标题
   const getPageTitle = () => {
     switch (pathname) {
@@ -39,9 +39,7 @@ export function Navbar() {
       <div className="flex items-center justify-between">
         {/* 左侧：页面标题 */}
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-semibold text-gray-900">
-            {getPageTitle()}
-          </h1>
+          <h1 className="text-2xl font-semibold text-gray-900">{getPageTitle()}</h1>
         </div>
 
         {/* 中间：搜索栏 */}
@@ -53,9 +51,9 @@ export function Navbar() {
         <div className="flex items-center space-x-3">
           {/* 排序选择器 */}
           <SortSelector />
-          
+
           {/* 过滤按钮 */}
-          <button 
+          <button
             onClick={() => setShowFilterPanel(true)}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
           >
@@ -64,12 +62,9 @@ export function Navbar() {
           </button>
         </div>
       </div>
-      
+
       {/* 过滤面板 */}
-      <FilterPanel
-        isOpen={showFilterPanel}
-        onClose={() => setShowFilterPanel(false)}
-      />
+      <FilterPanel isOpen={showFilterPanel} onClose={() => setShowFilterPanel(false)} />
     </header>
   );
 }

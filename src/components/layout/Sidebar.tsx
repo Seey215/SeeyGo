@@ -19,7 +19,7 @@ export function Sidebar() {
   const { tasks } = useTasks();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
-  
+
   // 计算任务统计
   const taskStats = getTaskStats(tasks);
   const todayTasks = getTodayTasks(tasks);
@@ -63,7 +63,7 @@ export function Sidebar() {
 
       {/* 快速操作区域 */}
       <div className="p-4 border-b border-gray-200">
-        <button 
+        <button
           onClick={() => setShowCreateModal(true)}
           className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
@@ -75,10 +75,10 @@ export function Sidebar() {
       <nav className="flex-1 overflow-y-auto">
         <div className="p-4">
           <ul className="space-y-1">
-            {NAVIGATION_ITEMS.map((item) => {
+            {NAVIGATION_ITEMS.map(item => {
               const isActive = pathname === item.path;
               const count = getNavItemCount(item.id);
-              
+
               return (
                 <li key={item.id}>
                   <Link
@@ -100,11 +100,11 @@ export function Sidebar() {
                       <span>{item.label}</span>
                     </div>
                     {item.count && count > 0 && (
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                        isActive
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-gray-100 text-gray-600'
-                      }`}>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          isActive ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'
+                        }`}
+                      >
                         {count}
                       </span>
                     )}
@@ -128,11 +128,11 @@ export function Sidebar() {
               </button>
             </div>
             <ul className="space-y-1">
-              {categories.map((category) => {
+              {categories.map(category => {
                 const categoryPath = `/category/${category.id}`;
                 const isActive = pathname === categoryPath;
                 const count = getCategoryTaskCount(category.id);
-                
+
                 return (
                   <li key={category.id}>
                     <Link
@@ -151,11 +151,11 @@ export function Sidebar() {
                         <span>{category.name}</span>
                       </div>
                       {count > 0 && (
-                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                          isActive
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-600'
-                        }`}>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                            isActive ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'
+                          }`}
+                        >
                           {count}
                         </span>
                       )}
@@ -182,16 +182,10 @@ export function Sidebar() {
       </nav>
 
       {/* 创建任务模态框 */}
-      <TaskFormModal
-        isOpen={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-      />
-      
+      <TaskFormModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
+
       {/* 分类管理模态框 */}
-      <CategoryManager
-        isOpen={showCategoryManager}
-        onClose={() => setShowCategoryManager(false)}
-      />
+      <CategoryManager isOpen={showCategoryManager} onClose={() => setShowCategoryManager(false)} />
     </aside>
   );
 }

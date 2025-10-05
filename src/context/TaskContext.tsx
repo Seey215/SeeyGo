@@ -39,9 +39,7 @@ function taskReducer(state: TaskState, action: TaskAction): TaskState {
     case 'UPDATE_TASK':
       return {
         ...state,
-        tasks: state.tasks.map(task =>
-          task.id === action.payload.id ? action.payload : task
-        ),
+        tasks: state.tasks.map(task => (task.id === action.payload.id ? action.payload : task)),
       };
 
     case 'DELETE_TASK':
@@ -54,7 +52,7 @@ function taskReducer(state: TaskState, action: TaskAction): TaskState {
       return {
         ...state,
         tasks: state.tasks.map(task =>
-          task.id === action.payload ? toggleTaskComplete(task) : task
+          task.id === action.payload ? toggleTaskComplete(task) : task,
         ),
       };
 
@@ -65,15 +63,15 @@ function taskReducer(state: TaskState, action: TaskAction): TaskState {
 
 // 序列化任务数据
 function serializeTasks(tasks: Task[]): any[] {
-  return tasks.map(task => 
-    serializer.serializeWithDates(task, ['createdAt', 'updatedAt', 'dueDate'])
+  return tasks.map(task =>
+    serializer.serializeWithDates(task, ['createdAt', 'updatedAt', 'dueDate']),
   );
 }
 
 // 反序列化任务数据
 function deserializeTasks(data: any[]): Task[] {
-  return data.map(task => 
-    serializer.deserializeWithDates(task, ['createdAt', 'updatedAt', 'dueDate'])
+  return data.map(task =>
+    serializer.deserializeWithDates(task, ['createdAt', 'updatedAt', 'dueDate']),
   );
 }
 
@@ -101,9 +99,5 @@ export function TaskProvider({ children }: TaskProviderProps) {
     }
   }, [state.tasks]);
 
-  return (
-    <TaskContext.Provider value={{ state, dispatch }}>
-      {children}
-    </TaskContext.Provider>
-  );
+  return <TaskContext.Provider value={{ state, dispatch }}>{children}</TaskContext.Provider>;
 }

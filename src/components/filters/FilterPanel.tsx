@@ -12,7 +12,14 @@ interface FilterPanelProps {
 }
 
 export function FilterPanel({ isOpen, onClose }: FilterPanelProps) {
-  const { filters, setPriorityFilter, setCategoryFilter, setStatusFilter, setDateFilter, clearFilters } = useFilters();
+  const {
+    filters,
+    setPriorityFilter,
+    setCategoryFilter,
+    setStatusFilter,
+    setDateFilter,
+    clearFilters,
+  } = useFilters();
   const { categories } = useCategories();
 
   const priorityOptions = [
@@ -43,7 +50,7 @@ export function FilterPanel({ isOpen, onClose }: FilterPanelProps) {
           label="优先级"
           options={priorityOptions}
           value={filters.priority || ''}
-          onChange={(value) => setPriorityFilter(value as Priority | null)}
+          onChange={value => setPriorityFilter(value as Priority | null)}
           fullWidth
         />
 
@@ -51,7 +58,7 @@ export function FilterPanel({ isOpen, onClose }: FilterPanelProps) {
           label="状态"
           options={statusOptions}
           value={filters.status}
-          onChange={(value) => setStatusFilter(value as TaskStatus | 'all')}
+          onChange={value => setStatusFilter(value as TaskStatus | 'all')}
           fullWidth
         />
 
@@ -59,7 +66,7 @@ export function FilterPanel({ isOpen, onClose }: FilterPanelProps) {
           label="分类"
           options={categoryOptions}
           value={filters.category || ''}
-          onChange={(value) => setCategoryFilter(value || null)}
+          onChange={value => setCategoryFilter(value || null)}
           fullWidth
         />
 
@@ -67,13 +74,13 @@ export function FilterPanel({ isOpen, onClose }: FilterPanelProps) {
           <DatePicker
             label="开始日期"
             value={filters.dateRange[0]}
-            onChange={(date) => setDateFilter([date, filters.dateRange[1]])}
+            onChange={date => setDateFilter([date, filters.dateRange[1]])}
             fullWidth
           />
           <DatePicker
             label="结束日期"
             value={filters.dateRange[1]}
-            onChange={(date) => setDateFilter([filters.dateRange[0], date])}
+            onChange={date => setDateFilter([filters.dateRange[0], date])}
             fullWidth
           />
         </div>
@@ -82,9 +89,7 @@ export function FilterPanel({ isOpen, onClose }: FilterPanelProps) {
           <Button variant="outline" onClick={clearFilters}>
             清空过滤
           </Button>
-          <Button onClick={onClose}>
-            应用过滤
-          </Button>
+          <Button onClick={onClose}>应用过滤</Button>
         </div>
       </div>
     </Modal>

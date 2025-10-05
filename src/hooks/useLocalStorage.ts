@@ -11,16 +11,18 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   });
 
   // 更新存储值
-  const setStoredValue = useCallback((newValue: T | ((prev: T) => T)) => {
-    setValue(prevValue => {
-      const valueToStore = typeof newValue === 'function' 
-        ? (newValue as (prev: T) => T)(prevValue)
-        : newValue;
-      
-      storage.set(key, valueToStore);
-      return valueToStore;
-    });
-  }, [key]);
+  const setStoredValue = useCallback(
+    (newValue: T | ((prev: T) => T)) => {
+      setValue(prevValue => {
+        const valueToStore =
+          typeof newValue === 'function' ? (newValue as (prev: T) => T)(prevValue) : newValue;
+
+        storage.set(key, valueToStore);
+        return valueToStore;
+      });
+    },
+    [key],
+  );
 
   // 删除存储值
   const removeValue = useCallback(() => {
@@ -53,21 +55,23 @@ export function useAsyncLocalStorage<T>(key: string, initialValue: T) {
   }, [key, initialValue]);
 
   // 更新存储值
-  const setStoredValue = useCallback(async (newValue: T | ((prev: T) => T)) => {
-    try {
-      setValue(prevValue => {
-        const valueToStore = typeof newValue === 'function' 
-          ? (newValue as (prev: T) => T)(prevValue)
-          : newValue;
-        
-        storage.set(key, valueToStore);
-        return valueToStore;
-      });
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to save to storage'));
-    }
-  }, [key]);
+  const setStoredValue = useCallback(
+    async (newValue: T | ((prev: T) => T)) => {
+      try {
+        setValue(prevValue => {
+          const valueToStore =
+            typeof newValue === 'function' ? (newValue as (prev: T) => T)(prevValue) : newValue;
+
+          storage.set(key, valueToStore);
+          return valueToStore;
+        });
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to save to storage'));
+      }
+    },
+    [key],
+  );
 
   // 删除存储值
   const removeValue = useCallback(async () => {

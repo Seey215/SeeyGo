@@ -138,9 +138,9 @@ export function filterTasks(tasks: Task[], filters: TaskFilters, categories?: Ca
     if (filters.search) {
       const searchText = filters.search.toLowerCase();
       if (
-        !task.title.toLowerCase().includes(searchText) &&
-        !task.description?.toLowerCase().includes(searchText) &&
-        !task.tags.some(tag => tag.toLowerCase().includes(searchText))
+        !task.title.toLowerCase().includes(searchText)
+        && !task.description?.toLowerCase().includes(searchText)
+        && !task.tags.some(tag => tag.toLowerCase().includes(searchText))
       ) {
         return false;
       }
@@ -164,9 +164,7 @@ export function filterTasks(tasks: Task[], filters: TaskFilters, categories?: Ca
 
     // 标签过滤
     if (filters.tags.length > 0) {
-      const hasMatchingTag = filters.tags.some(filterTag =>
-        task.tags.includes(filterTag)
-      );
+      const hasMatchingTag = filters.tags.some(filterTag => task.tags.includes(filterTag));
       if (!hasMatchingTag) return false;
     }
 
@@ -199,14 +197,14 @@ export function getImportantTasks(tasks: Task[]): Task[] {
   return tasks.filter(task => {
     // 高优先级任务
     if (task.priority === 'high') return true;
-    
+
     // 即将到期的任务（3天内）
     if (task.dueDate) {
       const threeDaysFromNow = new Date();
       threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
       return task.dueDate <= threeDaysFromNow && !isOverdue(task.dueDate);
     }
-    
+
     return false;
   });
 }
@@ -246,11 +244,11 @@ export function getTaskStats(tasks: Task[]) {
  */
 export function matchesSearch(task: Task, searchText: string): boolean {
   if (!searchText) return true;
-  
+
   const search = searchText.toLowerCase();
   return (
-    task.title.toLowerCase().includes(search) ||
-    task.description?.toLowerCase().includes(search) ||
-    task.tags.some(tag => tag.toLowerCase().includes(search))
+    task.title.toLowerCase().includes(search)
+    || task.description?.toLowerCase().includes(search)
+    || task.tags.some(tag => tag.toLowerCase().includes(search))
   );
 }

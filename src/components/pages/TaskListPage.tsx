@@ -7,12 +7,12 @@ import { useFilters } from '@/hooks/useFilters';
 import { TaskList, TaskFormModal } from '@/components/tasks';
 import { FilterPanel } from '@/components/filters';
 import { Button } from '@/components/ui';
-import { 
-  filterTasks, 
-  sortTasks, 
-  getTodayTasks, 
+import {
+  filterTasks,
+  sortTasks,
+  getTodayTasks,
   getImportantTasks,
-  getTaskStats 
+  getTaskStats,
 } from '@/utils/taskUtils';
 import type { TaskStatus, ViewType } from '@/types';
 
@@ -98,24 +98,17 @@ export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
             </p>
           </div>
           <div className="flex items-center space-x-3">
-            <Button
-              variant="outline"
-              onClick={() => setShowFilterPanel(true)}
-            >
+            <Button variant="outline" onClick={() => setShowFilterPanel(true)}>
               筛选
             </Button>
-            <Button
-              onClick={() => setShowCreateModal(true)}
-            >
-              + 新建任务
-            </Button>
+            <Button onClick={() => setShowCreateModal(true)}>+ 新建任务</Button>
           </div>
         </div>
       </div>
 
       {/* 任务列表区域 */}
       <div className="flex-1 overflow-y-auto p-6">
-        <TaskList 
+        <TaskList
           tasks={finalTasks}
           emptyMessage={viewType === 'completed' ? '还没有已完成的任务' : '暂无任务'}
           emptyIcon={viewType === 'completed' ? '✅' : '📝'}
@@ -123,16 +116,10 @@ export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
       </div>
 
       {/* 创建任务模态框 */}
-      <TaskFormModal
-        isOpen={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-      />
-      
+      <TaskFormModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
+
       {/* 过滤面板 */}
-      <FilterPanel
-        isOpen={showFilterPanel}
-        onClose={() => setShowFilterPanel(false)}
-      />
+      <FilterPanel isOpen={showFilterPanel} onClose={() => setShowFilterPanel(false)} />
     </div>
   );
 }

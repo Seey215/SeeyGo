@@ -30,7 +30,7 @@ export interface AppState {
 }
 
 // 操作类型
-export type TaskAction = 
+export type TaskAction =
   | { type: 'ADD_TASK'; payload: Task }
   | { type: 'UPDATE_TASK'; payload: Task }
   | { type: 'DELETE_TASK'; payload: string }

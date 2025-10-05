@@ -45,12 +45,7 @@ export function TaskFormModal({ isOpen, onClose, task }: TaskFormModalProps) {
       title={task ? '编辑任务' : '创建新任务'}
       size="lg"
     >
-      <TaskForm
-        task={task}
-        onSubmit={handleSubmit}
-        onCancel={handleCancel}
-        loading={loading}
-      />
+      <TaskForm task={task} onSubmit={handleSubmit} onCancel={handleCancel} loading={loading} />
     </Modal>
   );
 }

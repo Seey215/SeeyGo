@@ -27,37 +27,35 @@ export function DatePicker({
   minDate,
   maxDate,
 }: DatePickerProps) {
-  const [inputValue, setInputValue] = useState(
-    value ? formatDate(value) : ''
-  );
-  
+  const [inputValue, setInputValue] = useState(value ? formatDate(value) : '');
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const dateString = event.target.value;
     setInputValue(dateString);
-    
+
     if (dateString) {
       const date = new Date(dateString);
       if (!isNaN(date.getTime())) {
         // 检查日期范围
         if (minDate && date < minDate) return;
         if (maxDate && date > maxDate) return;
-        
+
         onChange(date);
       }
     } else {
       onChange(undefined);
     }
   };
-  
+
   // 格式化日期为 HTML input[type="date"] 格式
   const formatForInput = (date?: Date): string => {
     if (!date) return '';
     return date.toISOString().split('T')[0];
   };
-  
+
   const minDateString = minDate ? formatForInput(minDate) : undefined;
   const maxDateString = maxDate ? formatForInput(maxDate) : undefined;
-  
+
   return (
     <Input
       type="date"

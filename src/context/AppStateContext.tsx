@@ -1,19 +1,8 @@
 'use client';
 
 import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
-import type { 
-  AppState, 
-  TaskFilters, 
-  TaskSort, 
-  UIState, 
-  FilterAction, 
-  UIAction 
-} from '@/types';
-import { 
-  DEFAULT_FILTERS, 
-  DEFAULT_SORT, 
-  DEFAULT_UI_STATE,
-} from '@/utils/constants';
+import type { AppState, TaskSort, FilterAction, UIAction } from '@/types';
+import { DEFAULT_FILTERS, DEFAULT_SORT, DEFAULT_UI_STATE } from '@/utils/constants';
 import { storage, STORAGE_KEYS } from '@/utils/storage';
 
 type AppAction = FilterAction | UIAction | { type: 'SET_SORT'; payload: TaskSort };
@@ -34,8 +23,8 @@ const initialState: Pick<AppState, 'filters' | 'sort' | 'ui'> = {
 
 // 应用状态 reducer
 function appStateReducer(
-  state: Pick<AppState, 'filters' | 'sort' | 'ui'>, 
-  action: AppAction
+  state: Pick<AppState, 'filters' | 'sort' | 'ui'>,
+  action: AppAction,
 ): Pick<AppState, 'filters' | 'sort' | 'ui'> {
   switch (action.type) {
     // 过滤器相关
@@ -143,8 +132,6 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   }, [state.ui]);
 
   return (
-    <AppStateContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppStateContext.Provider>
+    <AppStateContext.Provider value={{ state, dispatch }}>{children}</AppStateContext.Provider>
   );
 }

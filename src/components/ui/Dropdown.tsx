@@ -31,7 +31,7 @@ export function Dropdown({
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
+
   // 处理点击外部关闭
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -39,11 +39,11 @@ export function Dropdown({
         setIsOpen(false);
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  
+
   // 处理键盘导航
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -53,17 +53,13 @@ export function Dropdown({
       setIsOpen(false);
     }
   };
-  
+
   const selectedOption = options.find(option => option.value === value);
-  
+
   return (
     <div className={fullWidth ? 'w-full' : 'relative'} ref={dropdownRef}>
-      {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {label}
-        </label>
-      )}
-      
+      {label && <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
+
       <div className="relative">
         <button
           type="button"
@@ -74,18 +70,14 @@ export function Dropdown({
             error
               ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
               : 'border-gray-300 focus:border-blue-500'
-          } ${
-            disabled ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
+          } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <span className="block truncate">
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <svg
-              className={`h-5 w-5 text-gray-400 transition-transform ${
-                isOpen ? 'rotate-180' : ''
-              }`}
+              className={`h-5 w-5 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -97,10 +89,10 @@ export function Dropdown({
             </svg>
           </span>
         </button>
-        
+
         {isOpen && (
           <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {options.map((option) => (
+            {options.map(option => (
               <button
                 key={option.value}
                 onClick={() => {
@@ -114,13 +106,11 @@ export function Dropdown({
                   option.disabled
                     ? 'text-gray-400 cursor-not-allowed'
                     : value === option.value
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-900 hover:bg-blue-50'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-900 hover:bg-blue-50'
                 }`}
               >
-                <span className="block truncate font-normal">
-                  {option.label}
-                </span>
+                <span className="block truncate font-normal">{option.label}</span>
                 {value === option.value && (
                   <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-white">
                     <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -137,10 +127,8 @@ export function Dropdown({
           </div>
         )}
       </div>
-      
-      {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
-      )}
+
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }
