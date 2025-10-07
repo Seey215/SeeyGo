@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "export": "next export",
+    "deploy": "next build && next export",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write"
