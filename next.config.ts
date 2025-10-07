@@ -1,8 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  distDir: 'out',
+  // 移除 output: 'export' 以支持动态路由
+  distDir: '.next',
   images: {
     unoptimized: true,
   },

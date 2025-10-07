@@ -7,11 +7,15 @@ import { Sidebar, Navbar, MainContent } from '@/components/layout';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
+  display: 'swap',
+  fallback: ['sans-serif'],
 });
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  display: 'swap',
+  fallback: ['monospace'],
 });
 
 export const metadata: Metadata = {
