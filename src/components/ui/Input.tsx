@@ -27,11 +27,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
     const baseClasses =
-      'block px-3 py-2 border rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed';
+      'block px-3 py-2.5 border rounded-lg text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 bg-white shadow-sm';
 
     const stateClasses = error
       ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
-      : 'border-gray-300 focus:border-blue-500';
+      : 'border-slate-300 focus:border-blue-500 hover:border-slate-400';
 
     const paddingClasses = [leftIcon ? 'pl-10' : 'pl-3', rightIcon ? 'pr-10' : 'pr-3'].join(' ');
 
@@ -48,7 +48,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={fullWidth ? 'w-full' : ''}>
         {label && (
-          <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor={inputId} className="block text-sm font-semibold text-slate-700 mb-2">
             {label}
           </label>
         )}
@@ -69,9 +69,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
 
-        {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+        {error && <p className="mt-1 text-sm text-red-600 font-medium">{error}</p>}
 
-        {!error && helperText && <p className="mt-1 text-sm text-gray-500">{helperText}</p>}
+        {!error && helperText && <p className="mt-1 text-sm text-slate-500">{helperText}</p>}
       </div>
     );
   },

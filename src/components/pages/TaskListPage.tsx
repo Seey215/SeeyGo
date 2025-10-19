@@ -89,25 +89,35 @@ export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
   return (
     <div className="h-full flex flex-col">
       {/* 页面头部 */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 px-6 py-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">{getPageTitle()}</h2>
-            <p className="text-sm text-gray-500 mt-1">
-              共 {stats.total} 个任务，{stats.active} 个进行中，{stats.completed} 个已完成
+            <h2 className="text-2xl font-bold text-slate-900 gradient-text">{getPageTitle()}</h2>
+            <p className="text-sm text-slate-500 mt-2 font-medium">
+              共 <span className="font-bold text-slate-700">{stats.total}</span> 个任务，
+              <span className="font-bold text-blue-600">{stats.active}</span> 个进行中，
+              <span className="font-bold text-emerald-600">{stats.completed}</span> 个已完成
             </p>
           </div>
           <div className="flex items-center space-x-3">
             <Button variant="outline" onClick={() => setShowFilterPanel(true)}>
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z" />
+              </svg>
               筛选
             </Button>
-            <Button onClick={() => setShowCreateModal(true)}>+ 新建任务</Button>
+            <Button onClick={() => setShowCreateModal(true)}>
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              新建任务
+            </Button>
           </div>
         </div>
       </div>
 
       {/* 任务列表区域 */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-8">
         <TaskList
           tasks={finalTasks}
           emptyMessage={viewType === 'completed' ? '还没有已完成的任务' : '暂无任务'}

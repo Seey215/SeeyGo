@@ -17,6 +17,7 @@ interface DropdownProps {
   fullWidth?: boolean;
   label?: string;
   error?: string;
+  className?: string;
 }
 
 export function Dropdown({
@@ -28,6 +29,7 @@ export function Dropdown({
   fullWidth = false,
   label,
   error,
+  className = '',
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -57,8 +59,8 @@ export function Dropdown({
   const selectedOption = options.find(option => option.value === value);
 
   return (
-    <div className={fullWidth ? 'w-full' : 'relative'} ref={dropdownRef}>
-      {label && <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
+    <div className={`${fullWidth ? 'w-full' : 'relative'} ${className}`} ref={dropdownRef}>
+      {label && <label className="block text-sm font-semibold text-slate-700 mb-2">{label}</label>}
 
       <div className="relative">
         <button
@@ -66,10 +68,10 @@ export function Dropdown({
           onClick={() => !disabled && setIsOpen(!isOpen)}
           onKeyDown={handleKeyDown}
           disabled={disabled}
-          className={`relative w-full cursor-default rounded-lg border bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm ${
+          className={`relative w-full cursor-default rounded-xl border bg-white py-2.5 pl-4 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-all duration-200 sm:text-sm ${
             error
               ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-blue-500'
+              : 'border-slate-300 focus:border-blue-500 hover:border-slate-400'
           } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <span className="block truncate">
@@ -91,7 +93,7 @@ export function Dropdown({
         </button>
 
         {isOpen && (
-          <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <div className="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-2 text-base shadow-xl ring-1 ring-slate-200 focus:outline-none sm:text-sm">
             {options.map(option => (
               <button
                 key={option.value}
@@ -102,12 +104,12 @@ export function Dropdown({
                   }
                 }}
                 disabled={option.disabled}
-                className={`relative w-full cursor-default select-none py-2 pl-3 pr-9 text-left ${
+                className={`relative w-full cursor-default select-none py-2.5 pl-4 pr-9 text-left transition-colors duration-150 ${
                   option.disabled
-                    ? 'text-gray-400 cursor-not-allowed'
+                    ? 'text-slate-400 cursor-not-allowed'
                     : value === option.value
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-900 hover:bg-blue-50'
+                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
+                      : 'text-slate-900 hover:bg-slate-100'
                 }`}
               >
                 <span className="block truncate font-normal">{option.label}</span>
@@ -128,7 +130,7 @@ export function Dropdown({
         )}
       </div>
 
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-2 text-sm text-red-600 font-medium">{error}</p>}
     </div>
   );
 }

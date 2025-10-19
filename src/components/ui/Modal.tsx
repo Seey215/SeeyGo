@@ -74,31 +74,40 @@ export function Modal({
       <div
         className="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
         onClick={handleOverlayClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleOverlayClick(e as any);
+          }
+        }}
+        role="button"
+        tabIndex={0}
       >
-        {/* 背景遮罩 */}
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        {/* 背景遮罩 - 毛玻璃效果 */}
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur transition-opacity" />
 
         {/* Modal 内容 */}
         <div
           ref={modalRef}
-          className={`relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:p-6 ${sizeClasses[size]}`}
+          className={`relative transform overflow-hidden rounded-xl bg-white px-4 pt-5 pb-4 text-left shadow-2xl transition-all modal-enter sm:my-8 sm:w-full sm:p-6 ${sizeClasses[size]}`}
         >
           {/* 标题栏 */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between mb-4">
-              {title && <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>}
+            <div className="flex items-center justify-between mb-6">
+              {title && <h3 className="text-xl font-bold leading-6 text-slate-900 gradient-text">{title}</h3>}
               {showCloseButton && (
                 <button
+                  type="button"
                   onClick={onClose}
-                  className="rounded-md bg-white text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="rounded-lg bg-slate-100 text-slate-400 hover:text-slate-600 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 p-2 transition-all duration-200 hover-scale"
+                  aria-label="关闭模态框"
                 >
-                  <span className="sr-only">关闭</span>
                   <svg
                     className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -108,7 +117,7 @@ export function Modal({
           )}
 
           {/* 内容区域 */}
-          <div className="text-sm text-gray-500">{children}</div>
+          <div className="text-sm text-slate-600">{children}</div>
         </div>
       </div>
     </div>

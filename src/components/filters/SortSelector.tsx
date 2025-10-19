@@ -34,6 +34,7 @@ export function SortSelector() {
       value={currentSortValue}
       onChange={handleSortChange}
       placeholder="选择排序方式"
+      className="min-w-[160px]"
     />
   );
 }

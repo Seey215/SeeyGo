@@ -29,14 +29,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const baseClasses =
-      'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+      'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed hover-scale';
 
     const variantClasses = {
-      primary: 'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500',
-      secondary: 'bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-500',
-      outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500',
-      ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
-      danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
+      primary: 'btn-gradient text-white shadow-sm hover:shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+      secondary: 'bg-gradient-to-r from-slate-500 to-slate-600 text-white shadow-sm hover:from-slate-600 hover:to-slate-700 hover:shadow-md focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
+      outline: 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm',
+      ghost: 'text-slate-700 hover:bg-slate-100 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
+      danger: 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-sm hover:from-red-600 hover:to-red-700 hover:shadow-md focus:ring-2 focus:ring-red-500 focus:ring-offset-2',
     };
 
     const sizeClasses = {
@@ -63,6 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
+            aria-label="加载中"
           >
             <circle
               className="opacity-25"

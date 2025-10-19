@@ -99,7 +99,7 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* 任务标题 */}
       <Input
         label="任务标题 *"
@@ -113,23 +113,23 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
 
       {/* 任务描述 */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">任务描述</label>
+        <label className="block text-sm font-semibold text-slate-700 mb-2">任务描述</label>
         <textarea
           value={formData.description}
           onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
           placeholder="输入任务描述..."
-          rows={3}
-          className={`block w-full px-3 py-2 border rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          rows={4}
+          className={`block w-full px-4 py-3 border rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-all duration-200 bg-white shadow-sm ${
             errors.description
               ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-blue-500'
+              : 'border-slate-300 focus:border-blue-500 hover:border-slate-400'
           }`}
         />
-        {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description}</p>}
+        {errors.description && <p className="mt-2 text-sm text-red-600 font-medium">{errors.description}</p>}
       </div>
 
       {/* 优先级和分类 */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6">
         <Dropdown
           label="优先级"
           options={priorityOptions}
@@ -158,9 +158,9 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
 
       {/* 标签输入 */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">标签</label>
-        <div className="space-y-2">
-          <div className="flex space-x-2">
+        <label className="block text-sm font-semibold text-slate-700 mb-2">标签</label>
+        <div className="space-y-3">
+          <div className="flex space-x-3">
             <Input
               value={tagInput}
               onChange={e => setTagInput(e.target.value)}
@@ -179,16 +179,16 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
               {formData.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 shadow-sm"
                 >
                   #{tag}
                   <button
                     type="button"
                     onClick={() => removeTag(tag)}
-                    className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full text-blue-400 hover:bg-blue-200 hover:text-blue-600 focus:outline-none focus:bg-blue-200 focus:text-blue-600"
+                    className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full text-blue-400 hover:bg-blue-300 hover:text-blue-700 focus:outline-none focus:bg-blue-300 focus:text-blue-700 transition-all duration-200"
                   >
                     <span className="sr-only">删除标签</span>
-                    <svg className="w-2 h-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
+                    <svg className="w-2.5 h-2.5" stroke="currentColor" fill="none" viewBox="0 0 8 8">
                       <path strokeLinecap="round" strokeWidth="1.5" d="m1 1 6 6m0-6L1 7" />
                     </svg>
                   </button>
@@ -200,7 +200,7 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
       </div>
 
       {/* 操作按钮 */}
-      <div className="flex justify-end space-x-3 pt-4">
+      <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200">
         <Button type="button" variant="outline" onClick={onCancel} disabled={loading}>
           取消
         </Button>

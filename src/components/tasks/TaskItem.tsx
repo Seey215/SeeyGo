@@ -38,12 +38,12 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
 
   return (
     <div
-      className={`bg-white rounded-lg border transition-all duration-200 ${
+      className={`bg-white rounded-xl border transition-all duration-200 card-hover ${
         task.completed
-          ? 'border-gray-200 opacity-75'
+          ? 'border-slate-200 opacity-75'
           : isTaskOverdue
             ? 'border-red-200 bg-red-50'
-            : 'border-gray-200 hover:shadow-md'
+            : 'border-slate-200 shadow-sm'
       } ${isDeleting ? 'opacity-50' : ''}`}
     >
       <div className="p-4">
@@ -52,10 +52,10 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
           <button
             onClick={handleToggleComplete}
             disabled={isDeleting}
-            className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+            className={`mt-1 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all checkbox-animate ${
               task.completed
-                ? 'bg-green-500 border-green-500 text-white'
-                : 'border-gray-300 hover:border-green-400 hover:bg-green-50'
+                ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 border-emerald-500 text-white shadow-md'
+                : 'border-slate-300 hover:border-emerald-400 hover:bg-emerald-50'
             }`}
           >
             {task.completed && (
@@ -73,12 +73,12 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
           <div className="flex-1 min-w-0">
             {/* 任务标题 */}
             <h3
-              className={`font-medium text-sm transition-all ${
+              className={`font-semibold text-base transition-all ${
                 task.completed
-                  ? 'text-gray-500 line-through'
+                  ? 'text-slate-500 line-through'
                   : isTaskOverdue
                     ? 'text-red-900'
-                    : 'text-gray-900'
+                    : 'text-slate-900'
               }`}
             >
               {task.title}
@@ -87,12 +87,12 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             {/* 任务描述 */}
             {task.description && (
               <p
-                className={`mt-1 text-sm ${
+                className={`mt-2 text-sm leading-relaxed ${
                   task.completed
-                    ? 'text-gray-400'
+                    ? 'text-slate-400'
                     : isTaskOverdue
                       ? 'text-red-700'
-                      : 'text-gray-600'
+                      : 'text-slate-600'
                 }`}
               >
                 {task.description}
@@ -100,46 +100,56 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             )}
 
             {/* 任务元信息 */}
-            <div className="flex items-center flex-wrap gap-2 mt-3">
+            <div className="flex items-center flex-wrap gap-2 mt-4">
               {/* 优先级标签 */}
               <span
-                className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}
+                className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-sm ${getPriorityColor(task.priority)}`}
               >
                 {task.priority === 'high' ? '高' : task.priority === 'medium' ? '中' : '低'}
               </span>
 
               {/* 分类标签 */}
               {task.categoryId && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                  📁 {getCategoryName(task.categoryId)}
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 shadow-sm">
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z" />
+                  </svg>
+                  {getCategoryName(task.categoryId)}
                 </span>
               )}
 
               {/* 截止日期 */}
               {task.dueDate && (
                 <span
-                  className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                    isTaskOverdue ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-700'
+                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-sm ${
+                    isTaskOverdue ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-800' : 'bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700'
                   }`}
                 >
-                  📅 {task.dueDate.toLocaleDateString('zh-CN')}
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {task.dueDate.toLocaleDateString('zh-CN')}
                   {isTaskOverdue && ' (已逾期)'}
                 </span>
               )}
 
               {/* 创建时间 */}
-              <span className="inline-flex items-center text-xs text-gray-500">
-                ⏰ {formatRelativeTime(task.createdAt)}
+              <span className="inline-flex items-center text-xs text-slate-500">
+                <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {formatRelativeTime(task.createdAt)}
               </span>
             </div>
 
             {/* 标签列表 */}
             {task.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-2">
+              <div className="flex flex-wrap gap-2 mt-3">
                 {task.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800"
+                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 shadow-sm"
                   >
                     #{tag}
                   </span>
@@ -153,7 +163,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             <button
               onClick={() => onEdit(task)}
               disabled={isDeleting}
-              className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover-scale"
               title="编辑任务"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +178,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+              className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover-scale"
               title="删除任务"
             >
               {isDeleting ? (
