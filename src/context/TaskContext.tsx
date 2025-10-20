@@ -63,14 +63,14 @@ function taskReducer(state: TaskState, action: TaskAction): TaskState {
 }
 
 // 序列化任务数据
-function serializeTasks(tasks: Task[]): any[] {
+function serializeTasks(tasks: Task[]): Record<string, unknown>[] {
   return tasks.map(task =>
     serializer.serializeWithDates(task, ['createdAt', 'updatedAt', 'dueDate']),
   );
 }
 
 // 反序列化任务数据
-function deserializeTasks(data: any[]): Task[] {
+function deserializeTasks(data: Record<string, unknown>[]): Task[] {
   return data.map(task =>
     serializer.deserializeWithDates(task, ['createdAt', 'updatedAt', 'dueDate']),
   );

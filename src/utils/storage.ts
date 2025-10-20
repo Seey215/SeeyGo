@@ -104,8 +104,11 @@ export const serializer = {
   /**
    * 序列化带日期的对象
    */
-  serializeWithDates<T extends Record<string, any>>(obj: T, dateFields: (keyof T)[]): any {
-    const serialized: any = { ...obj };
+  serializeWithDates<T extends Record<string, unknown>>(
+    obj: T,
+    dateFields: (keyof T)[],
+  ): Record<string, unknown> {
+    const serialized: Record<string, unknown> = { ...obj };
     dateFields.forEach(field => {
       const value = serialized[field];
       if (value && value instanceof Date) {
@@ -118,7 +121,10 @@ export const serializer = {
   /**
    * 反序列化带日期的对象
    */
-  deserializeWithDates<T extends Record<string, any>>(obj: any, dateFields: (keyof T)[]): T {
+  deserializeWithDates<T extends Record<string, unknown>>(
+    obj: Record<string, unknown>,
+    dateFields: (keyof T)[],
+  ): T {
     const deserialized = { ...obj };
     dateFields.forEach(field => {
       if (typeof deserialized[field] === 'string') {

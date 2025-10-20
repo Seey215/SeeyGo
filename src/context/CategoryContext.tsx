@@ -58,14 +58,14 @@ function categoryReducer(state: CategoryState, action: CategoryAction): Category
 }
 
 // 序列化分类数据
-function serializeCategories(categories: Category[]): any[] {
+function serializeCategories(categories: Category[]): Record<string, unknown>[] {
   return categories.map(category =>
     serializer.serializeWithDates(category, ['createdAt', 'updatedAt']),
   );
 }
 
 // 反序列化分类数据
-function deserializeCategories(data: any[]): Category[] {
+function deserializeCategories(data: Record<string, unknown>[]): Category[] {
   return data.map(category =>
     serializer.deserializeWithDates(category, ['createdAt', 'updatedAt']),
   );

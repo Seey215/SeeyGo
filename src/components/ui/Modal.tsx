@@ -76,12 +76,12 @@ export function Modal({
         className="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
         onClick={handleOverlayClick}
         onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            handleOverlayClick(e as any);
+          if (e.key === 'Escape') {
+            onClose();
           }
         }}
-        role="button"
-        tabIndex={0}
+        role="dialog"
+        aria-modal="true"
       >
         {/* 背景遮罩 - 毛玻璃效果 */}
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur transition-opacity" />

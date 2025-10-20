@@ -50,6 +50,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
         <div className="flex items-start space-x-3">
           {/* 任务状态复选框 */}
           <button
+            type="button"
             onClick={handleToggleComplete}
             disabled={isDeleting}
             className={`mt-1 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all checkbox-animate ${
@@ -118,6 +119,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
+                    <title>分类图标</title>
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -150,6 +152,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
+                    <title>日期图标</title>
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -165,6 +168,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               {/* 创建时间 */}
               <span className="inline-flex items-center text-xs text-slate-500">
                 <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <title>时间图标</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -179,9 +183,9 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             {/* 标签列表 */}
             {task.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-3">
-                {task.tags.map((tag, index) => (
+                {task.tags.map(tag => (
                   <span
-                    key={index}
+                    key={tag}
                     className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 shadow-sm"
                   >
                     #{tag}
@@ -194,12 +198,14 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
           {/* 操作按钮 */}
           <div className="flex items-center space-x-1">
             <button
+              type="button"
               onClick={() => onEdit(task)}
               disabled={isDeleting}
               className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover-scale"
               title="编辑任务"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <title>编辑图标</title>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -209,6 +215,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               </svg>
             </button>
             <button
+              type="button"
               onClick={handleDelete}
               disabled={isDeleting}
               className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover-scale"
@@ -216,6 +223,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             >
               {isDeleting ? (
                 <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <title>加载中</title>
                   <circle
                     className="opacity-25"
                     cx="12"
@@ -232,6 +240,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
                 </svg>
               ) : (
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <title>删除图标</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

@@ -70,6 +70,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             fill="none"
             viewBox="0 0 24 24"
             aria-label="加载中"
+            role="img"
           >
             <circle
               className="opacity-25"

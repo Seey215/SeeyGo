@@ -114,8 +114,11 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
 
       {/* 任务描述 */}
       <div>
-        <label className="block text-sm font-semibold text-slate-700 mb-2">任务描述</label>
+        <label htmlFor="description" className="block text-sm font-semibold text-slate-700 mb-2">
+          任务描述
+        </label>
         <textarea
+          id="description"
           value={formData.description}
           onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
           placeholder="输入任务描述..."
@@ -161,10 +164,13 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
 
       {/* 标签输入 */}
       <div>
-        <label className="block text-sm font-semibold text-slate-700 mb-2">标签</label>
+        <label htmlFor="tagInput" className="block text-sm font-semibold text-slate-700 mb-2">
+          标签
+        </label>
         <div className="space-y-3">
           <div className="flex space-x-3">
             <Input
+              id="tagInput"
               value={tagInput}
               onChange={e => setTagInput(e.target.value)}
               onKeyDown={handleTagInputKeyDown}
@@ -179,9 +185,9 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
           {/* 标签列表 */}
           {formData.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {formData.tags.map((tag, index) => (
+              {formData.tags.map(tag => (
                 <span
-                  key={index}
+                  key={tag}
                   className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 shadow-sm"
                 >
                   #{tag}
@@ -196,6 +202,8 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
                       stroke="currentColor"
                       fill="none"
                       viewBox="0 0 8 8"
+                      role="img"
+                      aria-label="删除标签"
                     >
                       <path strokeLinecap="round" strokeWidth="1.5" d="m1 1 6 6m0-6L1 7" />
                     </svg>

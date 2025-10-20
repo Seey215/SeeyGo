@@ -71,6 +71,7 @@ export function DatePicker({
       max={maxDateString}
       leftIcon={
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <title>日期选择器图标</title>
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

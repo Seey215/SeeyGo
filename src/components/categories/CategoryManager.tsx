@@ -6,16 +6,23 @@ import { Button, Input, Modal } from '@/components/ui';
 import { useCategories } from '@/hooks/useCategories';
 import type { Category, CategoryFormData } from '@/types';
 
-function CategoryForm({ category, onSubmit, onCancel, loading = false }: any) {
+interface CategoryFormProps {
+  category?: Category;
+  onSubmit: (data: CategoryFormData) => void;
+  onCancel: () => void;
+  loading?: boolean;
+}
+
+function CategoryForm({ category, onSubmit, onCancel, loading = false }: CategoryFormProps) {
   const [formData, setFormData] = useState<CategoryFormData>({
     name: category?.name || '',
     color: category?.color || '#2563EB',
   });
 
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = (): boolean => {
-    const newErrors: any = {};
+    const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) {
       newErrors.name = '分类名称不能为空';
     }
@@ -45,7 +52,7 @@ function CategoryForm({ category, onSubmit, onCancel, loading = false }: any) {
       />
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">分类颜色</label>
+        <div className="block text-sm font-medium text-gray-700 mb-2">分类颜色</div>
         <div className="flex flex-wrap gap-2">
           {colorOptions.map(color => (
             <button
@@ -73,7 +80,12 @@ function CategoryForm({ category, onSubmit, onCancel, loading = false }: any) {
   );
 }
 
-export function CategoryManager({ isOpen, onClose }: any) {
+interface CategoryManagerProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function CategoryManager({ isOpen, onClose }: CategoryManagerProps) {
   const { categories, createCategory, updateCategory, deleteCategory } = useCategories();
   const [editingCategory, setEditingCategory] = useState<Category | undefined>();
   const [showForm, setShowForm] = useState(false);
@@ -134,6 +146,7 @@ export function CategoryManager({ isOpen, onClose }: any) {
 
                 <div className="flex space-x-1">
                   <button
+                    type="button"
                     onClick={() => {
                       setEditingCategory(category);
                       setShowForm(true);
@@ -143,6 +156,7 @@ export function CategoryManager({ isOpen, onClose }: any) {
                     ✏️
                   </button>
                   <button
+                    type="button"
                     onClick={() => {
                       if (confirm('确定删除此分类吗？')) {
                         deleteCategory(category.id);

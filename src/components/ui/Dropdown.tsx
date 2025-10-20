@@ -61,7 +61,7 @@ export function Dropdown({
 
   return (
     <div className={`${fullWidth ? 'w-full' : 'relative'} ${className}`} ref={dropdownRef}>
-      {label && <label className="block text-sm font-semibold text-slate-700 mb-2">{label}</label>}
+      {label && <div className="block text-sm font-semibold text-slate-700 mb-2">{label}</div>}
 
       <div className="relative">
         <button
@@ -83,6 +83,7 @@ export function Dropdown({
               className={`h-5 w-5 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
               viewBox="0 0 20 20"
               fill="currentColor"
+              aria-hidden="true"
             >
               <path
                 fillRule="evenodd"
@@ -97,6 +98,7 @@ export function Dropdown({
           <div className="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-2 text-base shadow-xl ring-1 ring-slate-200 focus:outline-none sm:text-sm">
             {options.map(option => (
               <button
+                type="button"
                 key={option.value}
                 onClick={() => {
                   if (!option.disabled) {
@@ -116,7 +118,12 @@ export function Dropdown({
                 <span className="block truncate font-normal">{option.label}</span>
                 {value === option.value && (
                   <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-white">
-                    <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <svg
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
