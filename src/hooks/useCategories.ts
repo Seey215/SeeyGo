@@ -1,4 +1,4 @@
-import { useContext, useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 import { CategoryContext } from '@/context/CategoryContext';
 import type { Category, CategoryFormData } from '@/types';
 import { generateId } from '@/utils/taskUtils';

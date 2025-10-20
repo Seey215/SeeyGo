@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useTasks } from '@/hooks/useTasks';
+import { useState } from 'react';
 import { useCategories } from '@/hooks/useCategories';
+import { useTasks } from '@/hooks/useTasks';
+import type { Task } from '@/types';
 import { formatRelativeTime, isOverdue } from '@/utils/dateUtils';
 import { getPriorityColor } from '@/utils/taskUtils';
-import type { Task } from '@/types';
 
 interface TaskItemProps {
   task: Task;
@@ -60,6 +60,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
           >
             {task.completed && (
               <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <title>完成标记</title>
                 <path
                   fillRule="evenodd"
                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -111,9 +112,24 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               {/* 分类标签 */}
               {task.categoryId && (
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 shadow-sm">
-                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z" />
+                  <svg
+                    className="w-3 h-3 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"
+                    />
                   </svg>
                   {getCategoryName(task.categoryId)}
                 </span>
@@ -123,11 +139,23 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               {task.dueDate && (
                 <span
                   className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-sm ${
-                    isTaskOverdue ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-800' : 'bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700'
+                    isTaskOverdue
+                      ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-800'
+                      : 'bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700'
                   }`}
                 >
-                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  <svg
+                    className="w-3 h-3 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
                   </svg>
                   {task.dueDate.toLocaleDateString('zh-CN')}
                   {isTaskOverdue && ' (已逾期)'}
@@ -137,7 +165,12 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               {/* 创建时间 */}
               <span className="inline-flex items-center text-xs text-slate-500">
                 <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
                 {formatRelativeTime(task.createdAt)}
               </span>

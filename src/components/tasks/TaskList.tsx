@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import { TaskItem } from './TaskItem';
-import { TaskFormModal } from './TaskFormModal';
+import { useState } from 'react';
 import type { Task } from '@/types';
+import { TaskFormModal } from './TaskFormModal';
+import { TaskItem } from './TaskItem';
 
 interface TaskListProps {
   tasks: Task[];
@@ -64,8 +64,14 @@ export function TaskList({
         </div>
         <h3 className="text-2xl font-bold text-slate-900 mb-3 gradient-text">{emptyMessage}</h3>
         <p className="text-slate-500 mb-8 text-lg">开始创建你的第一个任务吧</p>
-        <button className="btn-gradient text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl">
-          <svg className="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button type="button" className="btn-gradient text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl">
+          <svg
+            className="w-5 h-5 mr-2 inline"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <title>添加图标</title>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
           创建任务
@@ -78,11 +84,7 @@ export function TaskList({
     <>
       <div className="space-y-4">
         {tasks.map((task, index) => (
-          <div 
-            key={task.id} 
-            className="fade-in"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
+          <div key={task.id} className="fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
             <TaskItem task={task} onEdit={handleEditTask} />
           </div>
         ))}

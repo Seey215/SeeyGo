@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Dropdown } from '@/components/ui';
 import { useFilters } from '@/hooks/useFilters';
 import type { SortField, SortOrder } from '@/types';

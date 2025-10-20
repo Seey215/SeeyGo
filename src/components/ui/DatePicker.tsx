@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Input } from './Input';
+import type React from 'react';
+import { useState } from 'react';
 import { formatDate } from '@/utils/dateUtils';
+import { Input } from './Input';
 
 interface DatePickerProps {
   value?: Date;
@@ -27,7 +28,7 @@ export function DatePicker({
   minDate,
   maxDate,
 }: DatePickerProps) {
-  const [inputValue, setInputValue] = useState(value ? formatDate(value) : '');
+  const [_inputValue, setInputValue] = useState(value ? formatDate(value) : '');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const dateString = event.target.value;
@@ -35,7 +36,7 @@ export function DatePicker({
 
     if (dateString) {
       const date = new Date(dateString);
-      if (!isNaN(date.getTime())) {
+      if (!Number.isNaN(date.getTime())) {
         // 检查日期范围
         if (minDate && date < minDate) return;
         if (maxDate && date > maxDate) return;

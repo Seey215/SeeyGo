@@ -1,8 +1,9 @@
 'use client';
 
-import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
+import type React from 'react';
+import { createContext, type ReactNode, useEffect, useReducer } from 'react';
 import type { Task, TaskAction } from '@/types';
-import { STORAGE_KEYS, storage, serializer } from '@/utils/storage';
+import { STORAGE_KEYS, serializer, storage } from '@/utils/storage';
 import { toggleTaskComplete } from '@/utils/taskUtils';
 
 interface TaskState {

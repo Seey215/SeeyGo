@@ -1,9 +1,10 @@
 'use client';
 
-import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
+import type React from 'react';
+import { createContext, type ReactNode, useEffect, useReducer } from 'react';
 import type { Category, CategoryAction } from '@/types';
-import { STORAGE_KEYS, storage, serializer } from '@/utils/storage';
 import { DEFAULT_CATEGORIES } from '@/types/category';
+import { STORAGE_KEYS, serializer, storage } from '@/utils/storage';
 import { generateId } from '@/utils/taskUtils';
 
 interface CategoryState {

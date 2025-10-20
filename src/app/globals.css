@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAFBFC;
-  --foreground: #0F172A;
-  --primary: #3B82F6;
-  --primary-dark: #1D4ED8;
-  --secondary: #0EA5E9;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
+  --background: #fafbfc;
+  --foreground: #0f172a;
+  --primary: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --secondary: #0ea5e9;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
 }
 
 @theme inline {
@@ -20,8 +20,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0F172A;
-    --foreground: #F8FAFC;
+    --background: #0f172a;
+    --foreground: #f8fafc;
   }
 }
 
@@ -29,7 +29,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -41,18 +41,18 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: #f1f5f9;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #CBD5E1 0%, #94A3B8 100%);
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
   border-radius: 3px;
   transition: all 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #94A3B8 0%, #64748B 100%);
+  background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
 }
 
 /* Stripe风格动画系统 */
@@ -95,7 +95,7 @@ body {
 
 .hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .hover-scale {
@@ -112,14 +112,14 @@ body {
 
 /* 按钮动画 */
 .btn-gradient {
-  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   transition: all 0.2s ease-out;
   position: relative;
   overflow: hidden;
 }
 
 .btn-gradient::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -134,7 +134,7 @@ body {
 }
 
 .btn-gradient:hover {
-  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
@@ -146,7 +146,7 @@ body {
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 /* 复选框动画 */
@@ -160,9 +160,15 @@ body {
 }
 
 @keyframes checkPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1.1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }
 
 /* 模态框动画 */
@@ -183,14 +189,18 @@ body {
 
 /* 加载动画 */
 .skeleton {
-  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
   background-size: 200% 100%;
   animation: skeleton 1.5s infinite;
 }
 
 @keyframes skeleton {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* 毛玻璃效果 */
@@ -201,7 +211,7 @@ body {
 
 /* 渐变文字 */
 .gradient-text {
-  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

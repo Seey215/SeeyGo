@@ -1,9 +1,10 @@
 'use client';
 
-import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
-import type { AppState, TaskSort, FilterAction, UIAction } from '@/types';
+import type React from 'react';
+import { createContext, type ReactNode, useEffect, useReducer } from 'react';
+import type { AppState, FilterAction, TaskSort, UIAction } from '@/types';
 import { DEFAULT_FILTERS, DEFAULT_SORT, DEFAULT_UI_STATE } from '@/utils/constants';
-import { storage, STORAGE_KEYS } from '@/utils/storage';
+import { STORAGE_KEYS, storage } from '@/utils/storage';
 
 type AppAction = FilterAction | UIAction | { type: 'SET_SORT'; payload: TaskSort };
 

@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Button, Input, Dropdown, DatePicker } from '@/components/ui';
+import type React from 'react';
+import { useState } from 'react';
+import { Button, DatePicker, Dropdown, Input } from '@/components/ui';
 import { useCategories } from '@/hooks/useCategories';
-import type { Task, TaskFormData, Priority } from '@/types';
+import type { Priority, Task, TaskFormData } from '@/types';
 import { PRIORITY_CONFIG } from '@/utils/constants';
 
 interface TaskFormProps {
@@ -125,7 +126,9 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
               : 'border-slate-300 focus:border-blue-500 hover:border-slate-400'
           }`}
         />
-        {errors.description && <p className="mt-2 text-sm text-red-600 font-medium">{errors.description}</p>}
+        {errors.description && (
+          <p className="mt-2 text-sm text-red-600 font-medium">{errors.description}</p>
+        )}
       </div>
 
       {/* 优先级和分类 */}
@@ -188,7 +191,12 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
                     className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full text-blue-400 hover:bg-blue-300 hover:text-blue-700 focus:outline-none focus:bg-blue-300 focus:text-blue-700 transition-all duration-200"
                   >
                     <span className="sr-only">删除标签</span>
-                    <svg className="w-2.5 h-2.5" stroke="currentColor" fill="none" viewBox="0 0 8 8">
+                    <svg
+                      className="w-2.5 h-2.5"
+                      stroke="currentColor"
+                      fill="none"
+                      viewBox="0 0 8 8"
+                    >
                       <path strokeLinecap="round" strokeWidth="1.5" d="m1 1 6 6m0-6L1 7" />
                     </svg>
                   </button>

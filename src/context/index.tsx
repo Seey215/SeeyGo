@@ -1,9 +1,9 @@
 'use client';
 
-import React, { ReactNode } from 'react';
-import { TaskProvider } from './TaskContext';
-import { CategoryProvider } from './CategoryContext';
+import type { ReactNode } from 'react';
 import { AppStateProvider } from './AppStateContext';
+import { CategoryProvider } from './CategoryContext';
+import { TaskProvider } from './TaskContext';
 
 /**
  * 组合所有 Context Providers
@@ -22,7 +22,7 @@ export function AppProviders({ children }: AppProvidersProps) {
   );
 }
 
+export { AppStateContext, AppStateProvider } from './AppStateContext';
+export { CategoryContext, CategoryProvider } from './CategoryContext';
 // 导出所有 Context
 export { TaskContext, TaskProvider } from './TaskContext';
-export { CategoryContext, CategoryProvider } from './CategoryContext';
-export { AppStateContext, AppStateProvider } from './AppStateContext';

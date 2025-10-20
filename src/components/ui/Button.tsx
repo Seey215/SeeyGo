@@ -1,4 +1,5 @@
-import React, { ButtonHTMLAttributes, forwardRef } from 'react';
+import type React from 'react';
+import { type ButtonHTMLAttributes, forwardRef } from 'react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -32,11 +33,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed hover-scale';
 
     const variantClasses = {
-      primary: 'btn-gradient text-white shadow-sm hover:shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-      secondary: 'bg-gradient-to-r from-slate-500 to-slate-600 text-white shadow-sm hover:from-slate-600 hover:to-slate-700 hover:shadow-md focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
-      outline: 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm',
-      ghost: 'text-slate-700 hover:bg-slate-100 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
-      danger: 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-sm hover:from-red-600 hover:to-red-700 hover:shadow-md focus:ring-2 focus:ring-red-500 focus:ring-offset-2',
+      primary:
+        'btn-gradient text-white shadow-sm hover:shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+      secondary:
+        'bg-gradient-to-r from-slate-500 to-slate-600 text-white shadow-sm hover:from-slate-600 hover:to-slate-700 hover:shadow-md focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
+      outline:
+        'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm',
+      ghost:
+        'text-slate-700 hover:bg-slate-100 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
+      danger:
+        'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-sm hover:from-red-600 hover:to-red-700 hover:shadow-md focus:ring-2 focus:ring-red-500 focus:ring-offset-2',
     };
 
     const sizeClasses = {

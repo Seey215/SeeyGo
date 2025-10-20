@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface MainContentProps {
   children: ReactNode;

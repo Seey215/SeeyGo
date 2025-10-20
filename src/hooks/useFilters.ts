@@ -1,6 +1,6 @@
-import { useContext, useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 import { AppStateContext } from '@/context/AppStateContext';
-import type { TaskFilters, TaskSort, Priority, TaskStatus } from '@/types';
+import type { Priority, TaskSort, TaskStatus } from '@/types';
 
 /**
  * 过滤器管理 Hook

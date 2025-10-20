@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import type React from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
@@ -74,7 +75,7 @@ export function Modal({
       <div
         className="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
         onClick={handleOverlayClick}
-        onKeyDown={(e) => {
+        onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             handleOverlayClick(e as any);
           }
@@ -93,7 +94,11 @@ export function Modal({
           {/* 标题栏 */}
           {(title || showCloseButton) && (
             <div className="flex items-center justify-between mb-6">
-              {title && <h3 className="text-xl font-bold leading-6 text-slate-900 gradient-text">{title}</h3>}
+              {title && (
+                <h3 className="text-xl font-bold leading-6 text-slate-900 gradient-text">
+                  {title}
+                </h3>
+              )}
               {showCloseButton && (
                 <button
                   type="button"

@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Input } from '@/components/ui';
 import { useFilters } from '@/hooks/useFilters';
 
@@ -16,6 +15,7 @@ export function SearchBar() {
         onChange={e => setSearch(e.target.value)}
         leftIcon={
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <title>搜索图标</title>
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -29,11 +29,18 @@ export function SearchBar() {
       />
       {filters.search && (
         <button
+          type="button"
           onClick={() => setSearch('')}
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <title>清除搜索</title>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       )}

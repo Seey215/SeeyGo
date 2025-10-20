@@ -1,20 +1,20 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-import { useTasks } from '@/hooks/useTasks';
+import { useMemo, useState } from 'react';
+import { FilterPanel } from '@/components/filters';
+import { TaskFormModal, TaskList } from '@/components/tasks';
+import { Button } from '@/components/ui';
 import { useCategories } from '@/hooks/useCategories';
 import { useFilters } from '@/hooks/useFilters';
-import { TaskList, TaskFormModal } from '@/components/tasks';
-import { FilterPanel } from '@/components/filters';
-import { Button } from '@/components/ui';
+import { useTasks } from '@/hooks/useTasks';
+import type { ViewType } from '@/types';
 import {
   filterTasks,
-  sortTasks,
-  getTodayTasks,
   getImportantTasks,
   getTaskStats,
+  getTodayTasks,
+  sortTasks,
 } from '@/utils/taskUtils';
-import type { TaskStatus, ViewType } from '@/types';
 
 interface TaskListPageProps {
   viewType: ViewType;
@@ -50,7 +50,6 @@ export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
           baseTasks = tasks.filter(task => task.categoryId === categoryId);
         }
         break;
-      case 'all':
       default:
         baseTasks = tasks;
         break;
@@ -77,10 +76,10 @@ export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
         return '重要任务';
       case 'completed':
         return '已完成任务';
-      case 'category':
+      case 'category': {
         const category = categories.find(cat => cat.id === categoryId);
         return category ? `${category.name} 分类` : '分类任务';
-      case 'all':
+      }
       default:
         return '所有任务';
     }
@@ -102,13 +101,25 @@ export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
           <div className="flex items-center space-x-3">
             <Button variant="outline" onClick={() => setShowFilterPanel(true)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z" />
+                <title>筛选图标</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"
+                />
               </svg>
               筛选
             </Button>
             <Button onClick={() => setShowCreateModal(true)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                <title>添加图标</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m8-8H4"
+                />
               </svg>
               新建任务
             </Button>

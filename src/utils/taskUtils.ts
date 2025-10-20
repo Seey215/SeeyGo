@@ -1,5 +1,5 @@
-import type { Task, Priority, TaskFilters, TaskSort, Category } from '@/types';
-import { isToday, isOverdue, createDateRangeFilter } from './dateUtils';
+import type { Category, Priority, Task, TaskFilters, TaskSort } from '@/types';
+import { createDateRangeFilter, isOverdue, isToday } from './dateUtils';
 
 /**
  * 任务工具函数
@@ -113,11 +113,12 @@ export function sortTasks(tasks: Task[], sort: TaskSort): Task[] {
       case 'updatedAt':
         compareValue = a.updatedAt.getTime() - b.updatedAt.getTime();
         break;
-      case 'dueDate':
+      case 'dueDate': {
         const aDue = a.dueDate?.getTime() || Infinity;
         const bDue = b.dueDate?.getTime() || Infinity;
         compareValue = aDue - bDue;
         break;
+      }
       case 'priority':
         compareValue = getPriorityValue(a.priority) - getPriorityValue(b.priority);
         break;
@@ -132,7 +133,7 @@ export function sortTasks(tasks: Task[], sort: TaskSort): Task[] {
 /**
  * 任务过滤函数
  */
-export function filterTasks(tasks: Task[], filters: TaskFilters, categories?: Category[]): Task[] {
+export function filterTasks(tasks: Task[], filters: TaskFilters, _categories?: Category[]): Task[] {
   return tasks.filter(task => {
     // 搜索过滤
     if (filters.search) {

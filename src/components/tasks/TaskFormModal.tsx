@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { Modal } from '@/components/ui';
-import { TaskForm } from './TaskForm';
 import { useTasks } from '@/hooks/useTasks';
 import type { Task, TaskFormData } from '@/types';
+import { TaskForm } from './TaskForm';
 
 interface TaskFormModalProps {
   isOpen: boolean;

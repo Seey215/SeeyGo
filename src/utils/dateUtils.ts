@@ -156,7 +156,7 @@ export function getEndOfWeek(): Date {
 export function parseDate(dateString: string): Date | null {
   try {
     const date = new Date(dateString);
-    return isNaN(date.getTime()) ? null : date;
+    return Number.isNaN(date.getTime()) ? null : date;
   } catch {
     return null;
   }

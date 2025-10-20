@@ -64,6 +64,6 @@ export type UIAction =
   | { type: 'SET_SHOW_COMPLETED'; payload: boolean }
   | { type: 'SET_ACTIVE_MODAL'; payload: string | null };
 
-// 导入依赖类型
-import type { Task, TaskFilters, TaskSort, Priority, TaskStatus } from './task';
 import type { Category } from './category';
+// 导入依赖类型
+import type { Priority, Task, TaskFilters, TaskSort, TaskStatus } from './task';
