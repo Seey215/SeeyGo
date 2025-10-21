@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { FilterPanel, TaskFormModal, TaskList } from '@/components/tasks';
+import { TaskFormModal, TaskList } from '@/components/tasks';
 import { Button } from '@/components/ui';
 import { useCategories, useFilters, useTasks } from '@/hooks';
 import type { ViewType } from '@/types';
@@ -25,9 +25,8 @@ interface ViewPageClientProps {
 export function ViewPageClient({ params }: ViewPageClientProps) {
   const { tasks } = useTasks();
   const { categories } = useCategories();
-  const { filters, sort } = useFilters();
+  const { filters } = useFilters();
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showFilterPanel, setShowFilterPanel] = useState(false);
 
   // 解析视图类型和分类ID
   const { viewType, categoryId } = useMemo(() => {
@@ -91,9 +90,9 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
 
   // 应用过滤器和排序
   const finalTasks = useMemo(() => {
-    const filtered = filterTasks(filteredByView, filters, categories);
-    return sortTasks(filtered, sort);
-  }, [filteredByView, filters, sort, categories]);
+    const filtered = filterTasks(filteredByView, filters);
+    return sortTasks(filtered);
+  }, [filteredByView, filters]);
 
   // 计算统计数据
   const stats = getTaskStats(finalTasks);
@@ -130,18 +129,6 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
             </p>
           </div>
           <div className="flex items-center space-x-3">
-            <Button variant="outline" onClick={() => setShowFilterPanel(true)}>
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <title>筛选图标</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"
-                />
-              </svg>
-              筛选
-            </Button>
             <Button onClick={() => setShowCreateModal(true)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <title>添加图标</title>
@@ -169,9 +156,6 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
 
       {/* 创建任务模态框 */}
       <TaskFormModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
-
-      {/* 过滤面板 */}
-      <FilterPanel isOpen={showFilterPanel} onClose={() => setShowFilterPanel(false)} />
     </div>
   );
 }

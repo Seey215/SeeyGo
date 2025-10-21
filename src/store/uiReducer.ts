@@ -1,4 +1,4 @@
-import type { FilterAction, UIAction, TaskSort } from '@/types';
+import type { FilterAction, UIAction } from '@/types';
 import { DEFAULT_FILTERS } from '@/utils/constants';
 import type { AppStoreState } from './types';
 
@@ -7,7 +7,7 @@ import type { AppStoreState } from './types';
  */
 export function uiReducer(
   state: AppStoreState,
-  action: FilterAction | UIAction | { type: 'SET_SORT'; payload: TaskSort },
+  action: FilterAction | UIAction,
 ): AppStoreState {
   switch (action.type) {
     // 过滤器相关
@@ -15,49 +15,6 @@ export function uiReducer(
       return {
         ...state,
         filters: { ...state.filters, search: action.payload },
-      };
-
-    case 'SET_PRIORITY_FILTER':
-      return {
-        ...state,
-        filters: { ...state.filters, priority: action.payload },
-      };
-
-    case 'SET_CATEGORY_FILTER':
-      return {
-        ...state,
-        filters: { ...state.filters, category: action.payload },
-      };
-
-    case 'SET_TAG_FILTER':
-      return {
-        ...state,
-        filters: { ...state.filters, tags: action.payload },
-      };
-
-    case 'SET_DATE_FILTER':
-      return {
-        ...state,
-        filters: { ...state.filters, dateRange: action.payload },
-      };
-
-    case 'SET_STATUS_FILTER':
-      return {
-        ...state,
-        filters: { ...state.filters, status: action.payload },
-      };
-
-    case 'CLEAR_FILTERS':
-      return {
-        ...state,
-        filters: DEFAULT_FILTERS,
-      };
-
-    // 排序相关
-    case 'SET_SORT':
-      return {
-        ...state,
-        sort: action.payload,
       };
 
     // UI 状态相关

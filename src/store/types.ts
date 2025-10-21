@@ -1,9 +1,8 @@
-import type { Category, Task, TaskFilters, TaskSort, UIState } from '@/types';
+import type { Category, Task, TaskFilters, UIState } from '@/types';
 
 export interface AppStoreState {
   tasks: Task[];
   categories: Category[];
   filters: TaskFilters;
-  sort: TaskSort;
   ui: UIState;
 }

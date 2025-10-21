@@ -29,19 +29,6 @@ export interface TaskFormData {
 
 export interface TaskFilters {
   search: string;
-  priority: Priority | null;
-  category: string | null;
-  tags: string[];
-  dateRange: [Date?, Date?];
-  status: TaskStatus | 'all';
-}
-
-export type SortField = 'title' | 'createdAt' | 'updatedAt' | 'dueDate' | 'priority';
-export type SortOrder = 'asc' | 'desc';
-
-export interface TaskSort {
-  field: SortField;
-  order: SortOrder;
 }
 
 // ================================
@@ -103,7 +90,6 @@ export interface AppState {
   categories: Category[];
   tags: Tag[];
   filters: TaskFilters;
-  sort: TaskSort;
   ui: UIState;
 }
 
@@ -131,13 +117,7 @@ export type TagAction =
   | { type: 'SET_TAGS'; payload: Tag[] };
 
 export type FilterAction =
-  | { type: 'SET_SEARCH'; payload: string }
-  | { type: 'SET_PRIORITY_FILTER'; payload: Priority | null }
-  | { type: 'SET_CATEGORY_FILTER'; payload: string | null }
-  | { type: 'SET_TAG_FILTER'; payload: string[] }
-  | { type: 'SET_DATE_FILTER'; payload: [Date?, Date?] }
-  | { type: 'SET_STATUS_FILTER'; payload: TaskStatus | 'all' }
-  | { type: 'CLEAR_FILTERS' };
+  | { type: 'SET_SEARCH'; payload: string };
 
 export type UIAction =
   | { type: 'SET_VIEW'; payload: ViewType }

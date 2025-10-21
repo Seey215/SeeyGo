@@ -9,11 +9,10 @@ import type {
   FilterAction,
   Task,
   TaskAction,
-  TaskSort,
   UIAction,
 } from '@/types';
 import { DEFAULT_CATEGORIES } from '@/types';
-import { DEFAULT_FILTERS, DEFAULT_SORT, DEFAULT_UI_STATE } from '@/utils/constants';
+import { DEFAULT_FILTERS, DEFAULT_UI_STATE } from '@/utils/constants';
 import { STORAGE_KEYS, serializer, storage } from '@/utils/storage';
 import { generateId } from '@/utils/taskUtils';
 import { taskReducer } from './taskReducer';
@@ -25,7 +24,6 @@ interface AppStoreState {
   tasks: Task[];
   categories: Category[];
   filters: AppState['filters'];
-  sort: TaskSort;
   ui: AppState['ui'];
 }
 
@@ -34,8 +32,7 @@ type AppStoreAction =
   | TaskAction
   | CategoryAction
   | FilterAction
-  | UIAction
-  | { type: 'SET_SORT'; payload: TaskSort };
+  | UIAction;
 
 // Context 类型
 interface AppStoreContextType {
@@ -50,7 +47,6 @@ const initialState: AppStoreState = {
   tasks: [],
   categories: [],
   filters: DEFAULT_FILTERS,
-  sort: DEFAULT_SORT,
   ui: DEFAULT_UI_STATE,
 };
 
@@ -73,7 +69,7 @@ function appStoreReducer(state: AppStoreState, action: AppStoreAction): AppStore
   // 其他状态相关 action
   return uiReducer(
     state,
-    action as FilterAction | UIAction | { type: 'SET_SORT'; payload: TaskSort },
+    action as FilterAction | UIAction,
   );
 }
 

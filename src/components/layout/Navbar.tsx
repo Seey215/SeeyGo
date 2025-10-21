@@ -3,15 +3,13 @@
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-import { FilterPanel } from '@/components/tasks';
-import { SearchBar, SortSelector } from '@/components/ui';
+import { SearchBar } from '@/components/ui';
 
 /**
  * 顶部导航栏组件
  */
 export function Navbar() {
   const pathname = usePathname();
-  const [showFilterPanel, setShowFilterPanel] = useState(false);
 
   // 根据路径获取页面标题
   const getPageTitle = () => {
@@ -57,31 +55,9 @@ export function Navbar() {
 
         {/* 右侧：操作按钮 */}
         <div className="flex items-center space-x-3">
-          {/* 排序选择器 */}
-          <SortSelector />
-
-          {/* 过滤按钮 */}
-          <button
-            type="button"
-            onClick={() => setShowFilterPanel(true)}
-            className="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all duration-200 hover-scale"
-          >
-            <span className="sr-only">过滤</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <title>过滤</title>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"
-              />
-            </svg>
-          </button>
+          {/* 预留空间，未来可以添加其他功能 */}
         </div>
       </div>
-
-      {/* 过滤面板 */}
-      <FilterPanel isOpen={showFilterPanel} onClose={() => setShowFilterPanel(false)} />
     </header>
   );
 }

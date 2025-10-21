@@ -1,4 +1,4 @@
-import type { CategoryAction } from '@/types';
+import type { Category, CategoryAction } from '@/types';
 import type { AppStoreState } from './types';
 
 /**

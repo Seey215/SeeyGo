@@ -1,5 +1,5 @@
-import type { Category, Priority, Task, TaskFilters, TaskSort } from '@/types';
-import { createDateRangeFilter, isOverdue, isToday } from './dateUtils';
+import type { Category, Priority, Task, TaskFilters } from '@/types';
+import { isOverdue, isToday } from './dateUtils';
 
 /**
  * 任务工具函数
@@ -97,43 +97,18 @@ export function getPriorityColor(priority: Priority): string {
 }
 
 /**
- * 任务排序函数
+ * 任务排序函数 - 默认按创建时间倒序排列（最新的在最上面）
  */
-export function sortTasks(tasks: Task[], sort: TaskSort): Task[] {
+export function sortTasks(tasks: Task[]): Task[] {
   return [...tasks].sort((a, b) => {
-    let compareValue = 0;
-
-    switch (sort.field) {
-      case 'title':
-        compareValue = a.title.localeCompare(b.title);
-        break;
-      case 'createdAt':
-        compareValue = a.createdAt.getTime() - b.createdAt.getTime();
-        break;
-      case 'updatedAt':
-        compareValue = a.updatedAt.getTime() - b.updatedAt.getTime();
-        break;
-      case 'dueDate': {
-        const aDue = a.dueDate?.getTime() || Infinity;
-        const bDue = b.dueDate?.getTime() || Infinity;
-        compareValue = aDue - bDue;
-        break;
-      }
-      case 'priority':
-        compareValue = getPriorityValue(a.priority) - getPriorityValue(b.priority);
-        break;
-      default:
-        compareValue = 0;
-    }
-
-    return sort.order === 'desc' ? -compareValue : compareValue;
+    return b.createdAt.getTime() - a.createdAt.getTime();
   });
 }
 
 /**
- * 任务过滤函数
+ * 任务过滤函数 - 只支持搜索过滤
  */
-export function filterTasks(tasks: Task[], filters: TaskFilters, _categories?: Category[]): Task[] {
+export function filterTasks(tasks: Task[], filters: TaskFilters): Task[] {
   return tasks.filter(task => {
     // 搜索过滤
     if (filters.search) {
@@ -143,36 +118,6 @@ export function filterTasks(tasks: Task[], filters: TaskFilters, _categories?: C
         && !task.description?.toLowerCase().includes(searchText)
         && !task.tags.some(tag => tag.toLowerCase().includes(searchText))
       ) {
-        return false;
-      }
-    }
-
-    // 状态过滤
-    if (filters.status !== 'all') {
-      if (filters.status === 'completed' && !task.completed) return false;
-      if (filters.status === 'active' && task.completed) return false;
-    }
-
-    // 优先级过滤
-    if (filters.priority && task.priority !== filters.priority) {
-      return false;
-    }
-
-    // 分类过滤
-    if (filters.category && task.categoryId !== filters.category) {
-      return false;
-    }
-
-    // 标签过滤
-    if (filters.tags.length > 0) {
-      const hasMatchingTag = filters.tags.some(filterTag => task.tags.includes(filterTag));
-      if (!hasMatchingTag) return false;
-    }
-
-    // 日期范围过滤
-    if (filters.dateRange[0] || filters.dateRange[1]) {
-      const dateFilter = createDateRangeFilter(filters.dateRange[0], filters.dateRange[1]);
-      if (task.dueDate && !dateFilter(task.dueDate)) {
         return false;
       }
     }

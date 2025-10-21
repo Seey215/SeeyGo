@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { CategoryManager } from '@/components/categories';
-import { TaskFormModal } from '@/components/tasks';
-import { useCategories } from '@/hooks/useCategories';
-import { useTasks } from '@/hooks/useTasks';
+import { CategoryManager } from '@/components/categories/CategoryManager';
+import { TaskFormModal } from '@/components/tasks/TaskFormModal';
+import { useCategories, useTasks } from '@/hooks';
 import { NAVIGATION_ITEMS } from '@/utils/constants';
 import { getImportantTasks, getTaskStats, getTodayTasks } from '@/utils/taskUtils';
 
@@ -237,54 +236,6 @@ export function Sidebar() {
           </div>
         )}
 
-        {/* 快速过滤区域 */}
-        <div className="p-4 border-t border-slate-200/60">
-          <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wide mb-4">
-            快速过滤
-          </h3>
-          <div className="space-y-2">
-            <button
-              type="button"
-              className="w-full text-left px-4 py-3 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-xl transition-all duration-200 hover-scale font-medium"
-            >
-              <svg
-                className="w-4 h-4 mr-2 inline"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <title>时钟图标</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              过期任务 ({getTaskStats(tasks).total > 0 ? '?' : '0'})
-            </button>
-            <button
-              type="button"
-              className="w-full text-left px-4 py-3 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-xl transition-all duration-200 hover-scale font-medium"
-            >
-              <svg
-                className="w-4 h-4 mr-2 inline"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <title>标签图标</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                />
-              </svg>
-              无分类任务
-            </button>
-          </div>
-        </div>
       </nav>
 
       {/* 创建任务模态框 */}

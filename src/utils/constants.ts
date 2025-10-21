@@ -55,17 +55,6 @@ export const PRIORITY_CONFIG = {
 // 默认过滤器
 export const DEFAULT_FILTERS = {
   search: '',
-  priority: null,
-  category: null,
-  tags: [],
-  dateRange: [undefined, undefined] as [Date?, Date?],
-  status: 'all' as const,
-};
-
-// 默认排序
-export const DEFAULT_SORT = {
-  field: 'createdAt' as const,
-  order: 'desc' as const,
 };
 
 // 默认UI状态
