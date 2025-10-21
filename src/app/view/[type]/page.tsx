@@ -1,9 +1,9 @@
 import { ViewPageClient } from './ViewPageClient';
 
 interface ViewPageProps {
-  params: {
+  params: Promise<{
     type: string;
-  };
+  }>;
 }
 
 // 为静态导出提供静态参数
@@ -19,6 +19,7 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function ViewPage({ params }: ViewPageProps) {
-  return <ViewPageClient params={params} />;
+export default async function ViewPage({ params }: ViewPageProps) {
+  const resolvedParams = await params;
+  return <ViewPageClient params={resolvedParams} />;
 }

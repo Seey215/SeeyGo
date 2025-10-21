@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { CategoryManager } from '@/components/categories/CategoryManager';
-import { TaskFormModal } from '@/components/tasks/TaskFormModal';
+import { useCreateTaskContext } from '@/components/providers/CreateTaskProvider';
 import { SearchBar } from '@/components/ui';
 import { useCategories, useTasks } from '@/hooks';
 import { NAVIGATION_ITEMS } from '@/utils/constants';
@@ -17,7 +17,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const { categories } = useCategories();
   const { tasks } = useTasks();
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const { openCreateModal } = useCreateTaskContext();
   const [showCategoryManager, setShowCategoryManager] = useState(false);
 
   // 计算任务统计
@@ -70,7 +70,7 @@ export function Sidebar() {
       <div className="p-4 border-b border-slate-200/60">
         <button
           type="button"
-          onClick={() => setShowCreateModal(true)}
+          onClick={openCreateModal}
           className="w-full btn-gradient text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg"
         >
           <svg
@@ -242,9 +242,6 @@ export function Sidebar() {
           </div>
         )}
       </nav>
-
-      {/* 创建任务模态框 */}
-      <TaskFormModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
 
       {/* 分类管理模态框 */}
       <CategoryManager isOpen={showCategoryManager} onClose={() => setShowCategoryManager(false)} />

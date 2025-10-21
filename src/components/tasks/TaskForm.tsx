@@ -12,6 +12,8 @@ interface TaskFormProps {
   onSubmit: (data: TaskFormData) => void;
   onCancel: () => void;
   loading?: boolean;
+  defaultCategoryId?: string;
+  defaultViewType?: string;
 }
 
 const priorityOptions = Object.entries(PRIORITY_CONFIG).map(([key, config]) => ({
@@ -19,15 +21,44 @@ const priorityOptions = Object.entries(PRIORITY_CONFIG).map(([key, config]) => (
   label: config.label,
 }));
 
-export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskFormProps) {
+export function TaskForm({
+  task,
+  onSubmit,
+  onCancel,
+  loading = false,
+  defaultCategoryId,
+  defaultViewType,
+}: TaskFormProps) {
   const { categories } = useCategories();
+
+  // 根据视图类型获取默认值
+  const getDefaultValues = () => {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999); // 设置为今天的结束时间
+
+    switch (defaultViewType) {
+      case 'today':
+        return {
+          dueDate: today,
+          priority: 'high' as Priority, // 今日任务默认为高优先级
+        };
+      case 'important':
+        return {
+          priority: 'high' as Priority,
+        };
+      default:
+        return {};
+    }
+  };
+
+  const defaultValues = getDefaultValues();
 
   const [formData, setFormData] = useState<TaskFormData>({
     title: task?.title || '',
     description: task?.description || '',
-    priority: task?.priority || 'medium',
-    dueDate: task?.dueDate,
-    categoryId: task?.categoryId || '',
+    priority: task?.priority || defaultValues.priority || 'medium',
+    dueDate: task?.dueDate || defaultValues.dueDate,
+    categoryId: task?.categoryId || defaultCategoryId || '',
     tags: task?.tags || [],
   });
 

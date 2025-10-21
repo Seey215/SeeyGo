@@ -10,9 +10,17 @@ interface TaskFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   task?: Task;
+  defaultCategoryId?: string;
+  defaultViewType?: string;
 }
 
-export function TaskFormModal({ isOpen, onClose, task }: TaskFormModalProps) {
+export function TaskFormModal({
+  isOpen,
+  onClose,
+  task,
+  defaultCategoryId,
+  defaultViewType,
+}: TaskFormModalProps) {
   const { createTask, updateTask } = useTasks();
   const [loading, setLoading] = React.useState(false);
 
@@ -45,7 +53,14 @@ export function TaskFormModal({ isOpen, onClose, task }: TaskFormModalProps) {
       title={task ? '编辑任务' : '创建新任务'}
       size="lg"
     >
-      <TaskForm task={task} onSubmit={handleSubmit} onCancel={handleCancel} loading={loading} />
+      <TaskForm
+        task={task}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+        loading={loading}
+        defaultCategoryId={defaultCategoryId}
+        defaultViewType={defaultViewType}
+      />
     </Modal>
   );
 }

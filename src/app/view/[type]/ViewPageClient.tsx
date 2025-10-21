@@ -1,7 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { TaskFormModal, TaskList } from '@/components/tasks';
+import { useMemo } from 'react';
+import { useCreateTaskContext } from '@/components/providers/CreateTaskProvider';
+import { TaskList } from '@/components/tasks';
 import { Button } from '@/components/ui';
 import { useCategories, useFilters, useTasks } from '@/hooks';
 import type { ViewType } from '@/types';
@@ -26,7 +27,7 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
   const { tasks } = useTasks();
   const { categories } = useCategories();
   const { filters } = useFilters();
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const { openCreateModal } = useCreateTaskContext();
 
   // 解析视图类型和分类ID
   const { viewType, categoryId } = useMemo(() => {
@@ -129,7 +130,7 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
             </p>
           </div>
           <div className="flex items-center space-x-3">
-            <Button onClick={() => setShowCreateModal(true)}>
+            <Button onClick={() => openCreateModal(categoryId, viewType)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <title>添加图标</title>
                 <path
@@ -151,11 +152,10 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
           tasks={finalTasks}
           emptyMessage={viewType === 'completed' ? '还没有已完成的任务' : '暂无任务'}
           emptyIcon={viewType === 'completed' ? '✅' : '📝'}
+          currentCategoryId={categoryId}
+          currentViewType={viewType}
         />
       </div>
-
-      {/* 创建任务模态框 */}
-      <TaskFormModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
     </div>
   );
 }

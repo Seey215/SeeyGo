@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useCreateTaskContext } from '@/components/providers/CreateTaskProvider';
 import type { Task } from '@/types';
 import { TaskFormModal } from './TaskFormModal';
 import { TaskItem } from './TaskItem';
@@ -10,6 +11,8 @@ interface TaskListProps {
   loading?: boolean;
   emptyMessage?: string;
   emptyIcon?: string;
+  currentCategoryId?: string;
+  currentViewType?: string;
 }
 
 export function TaskList({
@@ -17,9 +20,12 @@ export function TaskList({
   loading = false,
   emptyMessage = '暂无任务',
   emptyIcon = '📝',
+  currentCategoryId,
+  currentViewType,
 }: TaskListProps) {
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const { openCreateModal } = useCreateTaskContext();
 
   const handleEditTask = (task: Task) => {
     setEditingTask(task);
@@ -69,6 +75,7 @@ export function TaskList({
         <p className="text-slate-500 mb-8 text-lg">开始创建你的第一个任务吧</p>
         <button
           type="button"
+          onClick={() => openCreateModal(currentCategoryId, currentViewType)}
           className="btn-gradient text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl"
         >
           <svg
