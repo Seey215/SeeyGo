@@ -1,10 +1,7 @@
 'use client';
 
-import { Button } from '@/components/Button';
-import { DatePicker } from '@/components/DatePicker';
-import { Dropdown } from '@/components/Dropdown';
-import { Modal } from '@/components/Modal';
-import { useCategories, useFilters } from '@/lib/hooks';
+import { Button, DatePicker, Dropdown, Modal } from '@/components/ui';
+import { useCategories, useFilters } from '@/hooks';
 import type { Priority, TaskStatus } from '@/types';
 
 interface FilterPanelProps {

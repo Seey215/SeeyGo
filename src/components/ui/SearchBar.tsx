@@ -1,7 +1,7 @@
 'use client';
 
-import { Input } from '@/components/Input';
-import { useFilters } from '@/lib/hooks';
+import { Input } from './Input';
+import { useFilters } from '@/hooks';
 
 export function SearchBar() {
   const { filters, setSearch } = useFilters();

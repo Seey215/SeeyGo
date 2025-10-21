@@ -3,9 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-import { FilterPanel } from '@/components/FilterPanel';
-import { SearchBar } from '@/components/SearchBar';
-import { SortSelector } from '@/components/SortSelector';
+import { FilterPanel } from '@/components/tasks';
+import { SearchBar, SortSelector } from '@/components/ui';
 
 /**
  * 顶部导航栏组件

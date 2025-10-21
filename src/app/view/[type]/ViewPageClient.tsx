@@ -1,11 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Button } from '@/components/Button';
-import { FilterPanel } from '@/components/FilterPanel';
-import { TaskFormModal } from '@/components/TaskFormModal';
-import { TaskList } from '@/components/TaskList';
-import { useCategories, useFilters, useTasks } from '@/lib/hooks';
+import { FilterPanel, TaskFormModal, TaskList } from '@/components/tasks';
+import { Button } from '@/components/ui';
+import { useCategories, useFilters, useTasks } from '@/hooks';
 import type { ViewType } from '@/types';
 import {
   filterTasks,
@@ -55,7 +53,7 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
       return { viewType: 'completed' as ViewType };
     }
 
-    if (type && type.startsWith('category-')) {
+    if (type?.startsWith('category-')) {
       const categoryId = type.replace('category-', '');
       return { viewType: 'category' as ViewType, categoryId };
     }

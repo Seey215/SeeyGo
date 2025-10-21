@@ -2,10 +2,8 @@
 
 import type React from 'react';
 import { useState } from 'react';
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
-import { Modal } from '@/components/Modal';
-import { useCategories } from '@/lib/hooks';
+import { Button, Input, Modal } from '@/components/ui';
+import { useCategories } from '@/hooks';
 import type { Category, CategoryFormData } from '@/types';
 
 interface CategoryFormProps {
