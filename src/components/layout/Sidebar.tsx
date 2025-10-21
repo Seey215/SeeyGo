@@ -113,7 +113,7 @@ export function Sidebar() {
         <div className="p-4">
           <ul className="space-y-1">
             {NAVIGATION_ITEMS.map(item => {
-              const isActive = pathname === item.path || pathname === item.path + '/';
+              const isActive = pathname === item.path || pathname === `${item.path}/`;
               const count = getNavItemCount(item.id);
 
               return (

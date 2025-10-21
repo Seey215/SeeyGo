@@ -1,7 +1,7 @@
 'use client';
 
-import { Input } from './Input';
 import { useFilters } from '@/hooks';
+import { Input } from './Input';
 
 export function SearchBar() {
   const { filters, setSearch } = useFilters();
@@ -25,13 +25,13 @@ export function SearchBar() {
           </svg>
         }
         fullWidth
-        className="bg-white/80 backdrop-blur-sm border-slate-200/60 focus:bg-white focus:border-blue-400 focus:ring-blue-500/20"
+        className="bg-slate-50 border-0 border-b border-slate-200 hover:border-slate-300 hover:bg-slate-100 hover:shadow-sm focus:border-slate-400 focus:bg-white focus:shadow-md focus:outline-none focus:ring-0 transition-all duration-200 rounded-none"
       />
       {filters.search && (
         <button
           type="button"
           onClick={() => setSearch('')}
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg p-1 transition-all duration-200 hover-scale"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <title>清除搜索</title>
