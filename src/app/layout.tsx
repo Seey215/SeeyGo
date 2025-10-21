@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { MainContent } from '@/components/layout/MainContent';
-import { Navbar } from '@/components/layout/Navbar';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { AppStoreProvider } from '@/store';
 
@@ -34,12 +33,9 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppStoreProvider>
-          <div className="h-screen flex flex-col">
-            <Navbar />
-            <div className="flex-1 flex overflow-hidden">
-              <Sidebar />
-              <MainContent>{children}</MainContent>
-            </div>
+          <div className="h-screen flex overflow-hidden">
+            <Sidebar />
+            <MainContent>{children}</MainContent>
           </div>
         </AppStoreProvider>
       </body>

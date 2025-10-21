@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { CategoryManager } from '@/components/categories/CategoryManager';
 import { TaskFormModal } from '@/components/tasks/TaskFormModal';
+import { SearchBar } from '@/components/ui';
 import { useCategories, useTasks } from '@/hooks';
 import { NAVIGATION_ITEMS } from '@/utils/constants';
 import { getImportantTasks, getTaskStats, getTodayTasks } from '@/utils/taskUtils';
@@ -58,6 +59,11 @@ export function Sidebar() {
             <p className="text-sm text-slate-500">欢迎回来</p>
           </div>
         </div>
+      </div>
+
+      {/* 搜索区域 */}
+      <div className="p-4 border-b border-slate-200/60">
+        <SearchBar />
       </div>
 
       {/* 快速操作区域 */}
@@ -235,7 +241,6 @@ export function Sidebar() {
             </ul>
           </div>
         )}
-
       </nav>
 
       {/* 创建任务模态框 */}
