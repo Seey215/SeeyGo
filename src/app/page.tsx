@@ -1,5 +1,5 @@
-import { TaskListPage } from '@/components/pages/TaskListPage';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return <TaskListPage viewType="all" />;
+  redirect('/view/all');
 }

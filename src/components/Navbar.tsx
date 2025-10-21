@@ -3,7 +3,9 @@
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-import { FilterPanel, SearchBar, SortSelector } from '@/components/filters';
+import { FilterPanel } from '@/components/FilterPanel';
+import { SearchBar } from '@/components/SearchBar';
+import { SortSelector } from '@/components/SortSelector';
 
 /**
  * 顶部导航栏组件
@@ -14,21 +16,29 @@ export function Navbar() {
 
   // 根据路径获取页面标题
   const getPageTitle = () => {
+    if (pathname.startsWith('/view/')) {
+      const type = pathname.split('/')[2];
+      switch (type) {
+        case 'all':
+          return '所有任务';
+        case 'today':
+          return '今日任务';
+        case 'important':
+          return '重要任务';
+        case 'completed':
+          return '已完成';
+        default:
+          if (type?.startsWith('category-')) {
+            return '分类任务';
+          }
+          return 'SeeyGo Todo';
+      }
+    }
+
     switch (pathname) {
-      case '/':
-        return '所有任务';
-      case '/today':
-        return '今日任务';
-      case '/important':
-        return '重要任务';
-      case '/completed':
-        return '已完成';
       case '/settings':
         return '设置';
       default:
-        if (pathname.startsWith('/category/')) {
-          return '分类任务';
-        }
         return 'SeeyGo Todo';
     }
   };

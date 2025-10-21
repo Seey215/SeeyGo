@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useCategories } from '@/hooks/useCategories';
-import { useTasks } from '@/hooks/useTasks';
+import { useCategories, useTasks } from '@/lib/hooks';
 import type { Task } from '@/types';
 import { formatRelativeTime, isOverdue } from '@/utils/dateUtils';
 import { getPriorityColor } from '@/utils/taskUtils';

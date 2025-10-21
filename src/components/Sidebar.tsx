@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { CategoryManager } from '@/components/categories';
-import { TaskFormModal } from '@/components/tasks';
-import { useCategories } from '@/hooks/useCategories';
-import { useTasks } from '@/hooks/useTasks';
+import { CategoryManager } from '@/components/CategoryManager';
+import { TaskFormModal } from '@/components/TaskFormModal';
+import { useCategories, useTasks } from '@/lib/hooks';
 import { NAVIGATION_ITEMS } from '@/utils/constants';
 import { getImportantTasks, getTaskStats, getTodayTasks } from '@/utils/taskUtils';
 

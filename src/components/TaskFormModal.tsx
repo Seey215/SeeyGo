@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Modal } from '@/components/ui';
-import { useTasks } from '@/hooks/useTasks';
+import { Modal } from '@/components/Modal';
+import { useTasks } from '@/lib/hooks';
 import type { Task, TaskFormData } from '@/types';
 import { TaskForm } from './TaskForm';
 

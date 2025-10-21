@@ -2,8 +2,11 @@
 
 import type React from 'react';
 import { useState } from 'react';
-import { Button, DatePicker, Dropdown, Input } from '@/components/ui';
-import { useCategories } from '@/hooks/useCategories';
+import { Button } from '@/components/Button';
+import { DatePicker } from '@/components/DatePicker';
+import { Dropdown } from '@/components/Dropdown';
+import { Input } from '@/components/Input';
+import { useCategories } from '@/lib/hooks';
 import type { Priority, Task, TaskFormData } from '@/types';
 import { PRIORITY_CONFIG } from '@/utils/constants';
 

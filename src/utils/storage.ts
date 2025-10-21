@@ -110,9 +110,9 @@ export const serializer = {
   ): Record<string, unknown> {
     const serialized: Record<string, unknown> = { ...obj };
     dateFields.forEach(field => {
-      const value = serialized[field];
+      const value = serialized[field as string];
       if (value && value instanceof Date) {
-        serialized[field] = this.serializeDate(value);
+        serialized[field as string] = this.serializeDate(value);
       }
     });
     return serialized;
@@ -127,10 +127,12 @@ export const serializer = {
   ): T {
     const deserialized = { ...obj };
     dateFields.forEach(field => {
-      if (typeof deserialized[field] === 'string') {
-        deserialized[field] = this.deserializeDate(deserialized[field]);
+      if (typeof deserialized[field as string] === 'string') {
+        deserialized[field as string] = this.deserializeDate(
+          deserialized[field as string] as string,
+        );
       }
     });
-    return deserialized;
+    return deserialized as T;
   },
 };

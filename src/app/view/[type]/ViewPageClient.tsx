@@ -1,12 +1,11 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { FilterPanel } from '@/components/filters';
-import { TaskFormModal, TaskList } from '@/components/tasks';
-import { Button } from '@/components/ui';
-import { useCategories } from '@/hooks/useCategories';
-import { useFilters } from '@/hooks/useFilters';
-import { useTasks } from '@/hooks/useTasks';
+import { Button } from '@/components/Button';
+import { FilterPanel } from '@/components/FilterPanel';
+import { TaskFormModal } from '@/components/TaskFormModal';
+import { TaskList } from '@/components/TaskList';
+import { useCategories, useFilters, useTasks } from '@/lib/hooks';
 import type { ViewType } from '@/types';
 import {
   filterTasks,
@@ -16,20 +15,54 @@ import {
   sortTasks,
 } from '@/utils/taskUtils';
 
-interface TaskListPageProps {
-  viewType: ViewType;
-  categoryId?: string;
+interface ViewPageClientProps {
+  params: {
+    type: string;
+  };
 }
 
 /**
- * 任务列表页面组件
+ * 统一视图页面客户端组件 - 处理所有任务视图
  */
-export function TaskListPage({ viewType, categoryId }: TaskListPageProps) {
+export function ViewPageClient({ params }: ViewPageClientProps) {
   const { tasks } = useTasks();
   const { categories } = useCategories();
   const { filters, sort } = useFilters();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
+
+  // 解析视图类型和分类ID
+  const { viewType, categoryId } = useMemo(() => {
+    const type = params?.type;
+
+    if (!type) {
+      return { viewType: 'all' as ViewType };
+    }
+
+    if (type === 'all') {
+      return { viewType: 'all' as ViewType };
+    }
+
+    if (type === 'today') {
+      return { viewType: 'today' as ViewType };
+    }
+
+    if (type === 'important') {
+      return { viewType: 'important' as ViewType };
+    }
+
+    if (type === 'completed') {
+      return { viewType: 'completed' as ViewType };
+    }
+
+    if (type && type.startsWith('category-')) {
+      const categoryId = type.replace('category-', '');
+      return { viewType: 'category' as ViewType, categoryId };
+    }
+
+    // 默认返回所有任务
+    return { viewType: 'all' as ViewType };
+  }, [params?.type]);
 
   // 根据视图类型过滤任务
   const filteredByView = useMemo(() => {

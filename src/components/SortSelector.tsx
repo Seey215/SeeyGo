@@ -1,7 +1,7 @@
 'use client';
 
-import { Dropdown } from '@/components/ui';
-import { useFilters } from '@/hooks/useFilters';
+import { Dropdown } from '@/components/Dropdown';
+import { useFilters } from '@/lib/hooks';
 import type { SortField, SortOrder } from '@/types';
 
 export function SortSelector() {
