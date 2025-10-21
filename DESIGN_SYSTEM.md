@@ -75,21 +75,27 @@ SeeyGo 采用现代 Stripe 风格的设计语言，注重简洁、精致和用�
 
 ## 阴影系统
 
-- **轻微阴影**: `shadow-sm` - 默认状态
-- **中等阴影**: `shadow-md` - 悬停和激活状态
+- **无阴影**: `shadow-none` - 沉默状态元素（如搜索框）
+- **轻微阴影**: `shadow-sm` - 悬停状态和次要元素
+- **中等阴影**: `shadow-md` - 激活状态和主要 CTA 按钮
 - **重阴影**: `shadow-lg` - 特殊强调元素
+
+### 阴影使用原则
+- **主要 CTA 按钮**：使用 `shadow-md` 确保视觉突出
+- **搜索框沉默状态**：使用 `shadow-none` 避免喧宾夺主
+- **交互元素**：悬停时使用 `shadow-sm`，激活时使用 `shadow-md`
 
 ## 组件设计规范
 
 ### 1. 搜索框 (SearchBar)
 
 #### 设计理念
-采用底部线条设计，避免外围线框的视觉干扰，实现渐进式的状态反馈。
+采用底部线条设计，避免外围线框的视觉干扰，实现渐进式的状态反馈。沉默状态下完全融入背景，避免喧宾夺主，与主要 CTA 按钮保持协调的视觉层次。
 
 #### 状态层次
 ```css
-/* 沉默状态 - 低调融入 */
-bg-slate-50 border-0 border-b border-slate-200
+/* 沉默状态 - 低调融入背景 */
+bg-slate-100/50 border-0 border-b border-slate-200/60 shadow-none rounded-lg
 
 /* 悬停状态 - 适度反馈 */
 hover:border-slate-300 hover:bg-slate-100 hover:shadow-sm
@@ -100,10 +106,12 @@ focus:border-slate-400 focus:bg-white focus:shadow-md focus:ring-0
 
 #### 设计特点
 - 无四周边框，仅底部线条
-- 渐进式背景色变化 (slate-50 → slate-100 → white)
-- 渐进式边框色变化 (slate-200 → slate-300 → slate-400)
+- 半透明背景色，更好地融入侧边栏渐变背景
+- 渐进式背景色变化 (slate-100/50 → slate-100 → white)
+- 渐进式边框色变化 (slate-200/60 → slate-300 → slate-400)
 - 渐进式阴影变化 (无 → shadow-sm → shadow-md)
 - 完全移除环形效果，避免视觉干扰
+- 沉默状态下无阴影，避免与主要按钮竞争注意力
 
 ### 2. 新建任务按钮 (Primary Button)
 
