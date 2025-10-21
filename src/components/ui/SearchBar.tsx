@@ -25,7 +25,7 @@ export function SearchBar() {
           </svg>
         }
         fullWidth
-        className="bg-slate-50 border-0 border-b border-slate-200 hover:border-slate-300 hover:bg-slate-100 hover:shadow-sm focus:border-slate-400 focus:bg-white focus:shadow-md focus:outline-none focus:ring-0 transition-all duration-200 rounded-none"
+        className="bg-slate-100/50 border-0 border-b border-slate-200/60 hover:border-slate-300 hover:bg-slate-100 hover:shadow-sm focus:border-slate-400 focus:bg-white focus:shadow-md focus:outline-none focus:ring-0 transition-all duration-200 rounded-lg"
       />
       {filters.search && (
         <button
