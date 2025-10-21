@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useCreateTaskContext } from '@/components/providers/CreateTaskProvider';
 import type { Task } from '@/types';
 import { TaskFormModal } from './TaskFormModal';
 import { TaskItem } from './TaskItem';
@@ -11,8 +10,6 @@ interface TaskListProps {
   loading?: boolean;
   emptyMessage?: string;
   emptyIcon?: string;
-  currentCategoryId?: string;
-  currentViewType?: string;
 }
 
 export function TaskList({
@@ -20,12 +17,9 @@ export function TaskList({
   loading = false,
   emptyMessage = '暂无任务',
   emptyIcon = '📝',
-  currentCategoryId,
-  currentViewType,
 }: TaskListProps) {
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
   const [showTaskModal, setShowTaskModal] = useState(false);
-  const { openCreateModal } = useCreateTaskContext();
 
   const handleEditTask = (task: Task) => {
     setEditingTask(task);
@@ -73,22 +67,6 @@ export function TaskList({
         </div>
         <h3 className="text-2xl font-bold text-slate-900 mb-3 gradient-text">{emptyMessage}</h3>
         <p className="text-slate-500 mb-8 text-lg">开始创建你的第一个任务吧</p>
-        <button
-          type="button"
-          onClick={() => openCreateModal(currentCategoryId, currentViewType)}
-          className="btn-gradient text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl"
-        >
-          <svg
-            className="w-5 h-5 mr-2 inline"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <title>添加图标</title>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          创建任务
-        </button>
       </div>
     );
   }

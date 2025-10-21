@@ -46,6 +46,21 @@ export function Sidebar() {
     return tasks.filter(task => task.categoryId === categoryId && !task.completed).length;
   };
 
+  // 根据当前路径获取视图类型
+  const getCurrentViewType = () => {
+    if (pathname === '/view/today') {
+      return 'today';
+    }
+    if (pathname === '/view/important') {
+      return 'important';
+    }
+    if (pathname?.startsWith('/view/category-')) {
+      const categoryId = pathname.replace('/view/category-', '');
+      return { categoryId };
+    }
+    return undefined;
+  };
+
   return (
     <aside className="w-80 bg-gradient-to-b from-slate-50 to-slate-100 border-r border-slate-200/60 flex flex-col h-full shadow-sm">
       {/* 用户信息区域 */}
@@ -70,7 +85,14 @@ export function Sidebar() {
       <div className="p-4 border-b border-slate-200/60">
         <button
           type="button"
-          onClick={openCreateModal}
+          onClick={() => {
+            const viewInfo = getCurrentViewType();
+            if (typeof viewInfo === 'object' && viewInfo.categoryId) {
+              openCreateModal(viewInfo.categoryId, 'category');
+            } else {
+              openCreateModal(undefined, viewInfo as string | undefined);
+            }
+          }}
           className="w-full btn-gradient text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg"
         >
           <svg

@@ -40,14 +40,16 @@ export function TaskForm({
       case 'today':
         return {
           dueDate: today,
-          priority: 'high' as Priority, // 今日任务默认为高优先级
+          priority: 'medium' as Priority, // 今日任务默认为中优先级
         };
       case 'important':
         return {
-          priority: 'high' as Priority,
+          priority: 'high' as Priority, // 重要任务保持高优先级
         };
       default:
-        return {};
+        return {
+          priority: 'medium' as Priority, // 其他情况默认为中优先级
+        };
     }
   };
 
