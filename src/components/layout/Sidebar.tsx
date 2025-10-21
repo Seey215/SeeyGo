@@ -113,7 +113,7 @@ export function Sidebar() {
         <div className="p-4">
           <ul className="space-y-1">
             {NAVIGATION_ITEMS.map(item => {
-              const isActive = pathname === item.path;
+              const isActive = pathname === item.path || pathname === item.path + '/';
               const count = getNavItemCount(item.id);
 
               return (
@@ -122,8 +122,8 @@ export function Sidebar() {
                     href={item.path}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 hover-scale ${
                       isActive
-                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-md'
-                        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                        ? 'bg-slate-100 text-slate-900 font-semibold shadow-sm border border-slate-200'
+                        : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:shadow-sm'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
@@ -198,7 +198,7 @@ export function Sidebar() {
                     {item.count && count > 0 && (
                       <span
                         className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                          isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                          isActive ? 'bg-slate-200 text-slate-700' : 'bg-slate-200 text-slate-700'
                         }`}
                       >
                         {count}
@@ -227,7 +227,7 @@ export function Sidebar() {
             <ul className="space-y-1">
               {categories.map(category => {
                 const categoryPath = `/view/category-${category.id}`;
-                const isActive = pathname === categoryPath;
+                const isActive = pathname === categoryPath || pathname === categoryPath + '/';
                 const count = getCategoryTaskCount(category.id);
 
                 return (
@@ -236,8 +236,8 @@ export function Sidebar() {
                       href={categoryPath}
                       className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 hover-scale ${
                         isActive
-                          ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold shadow-md'
-                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                          ? 'bg-slate-100 text-slate-900 font-semibold shadow-sm border border-slate-200'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:shadow-sm'
                       }`}
                     >
                       <div className="flex items-center space-x-3">
@@ -250,7 +250,7 @@ export function Sidebar() {
                       {count > 0 && (
                         <span
                           className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                            isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                            isActive ? 'bg-slate-200 text-slate-700' : 'bg-slate-200 text-slate-700'
                           }`}
                         >
                           {count}
