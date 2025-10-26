@@ -39,7 +39,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
     <div
       className={`bg-white rounded-xl border transition-all duration-200 card-hover ${
         task.completed
-          ? 'border-slate-200 opacity-75'
+          ? 'border-slate-200 opacity-60 bg-slate-50'
           : isTaskOverdue
             ? 'border-red-200 bg-red-50'
             : 'border-slate-200 shadow-sm'

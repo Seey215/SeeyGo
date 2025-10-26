@@ -122,8 +122,8 @@ export function Sidebar() {
                     href={item.path}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 hover-scale ${
                       isActive
-                        ? 'bg-slate-100 text-slate-900 font-semibold shadow-sm border border-slate-200'
-                        : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:shadow-sm'
+                        ? 'bg-slate-100 text-slate-900 font-semibold border border-slate-200'
+                        : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
@@ -236,8 +236,8 @@ export function Sidebar() {
                       href={categoryPath}
                       className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 hover-scale ${
                         isActive
-                          ? 'bg-slate-100 text-slate-900 font-semibold shadow-sm border border-slate-200'
-                          : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:shadow-sm'
+                          ? 'bg-slate-100 text-slate-900 font-semibold border border-slate-200'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
                       }`}
                     >
                       <div className="flex items-center space-x-3">

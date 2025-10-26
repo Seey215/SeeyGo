@@ -90,7 +90,7 @@ export function getPriorityText(priority: Priority): string {
 export function getPriorityColor(priority: Priority): string {
   const colors: Record<Priority, string> = {
     low: 'text-blue-600 bg-blue-50',
-    medium: 'text-yellow-600 bg-yellow-50',
+    medium: 'text-amber-600 bg-amber-50',
     high: 'text-red-600 bg-red-50',
   };
   return colors[priority];
