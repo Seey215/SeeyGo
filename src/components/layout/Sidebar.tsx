@@ -120,9 +120,9 @@ export function Sidebar() {
                 <li key={item.id}>
                   <Link
                     href={item.path}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 hover-scale ${
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover-scale ${
                       isActive
-                        ? 'bg-slate-100 text-slate-900 font-semibold border border-slate-200'
+                        ? 'btn-gradient text-white shadow-md hover:shadow-lg'
                         : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
                     }`}
                   >
@@ -198,7 +198,7 @@ export function Sidebar() {
                     {item.count && count > 0 && (
                       <span
                         className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                          isActive ? 'bg-slate-200 text-slate-700' : 'bg-slate-200 text-slate-700'
+                          isActive ? 'bg-white/30 text-white' : 'bg-slate-200 text-slate-700'
                         }`}
                       >
                         {count}
@@ -234,9 +234,9 @@ export function Sidebar() {
                   <li key={category.id}>
                     <Link
                       href={categoryPath}
-                      className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 hover-scale ${
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover-scale ${
                         isActive
-                          ? 'bg-slate-100 text-slate-900 font-semibold border border-slate-200'
+                          ? 'btn-gradient text-white shadow-md hover:shadow-lg'
                           : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
                       }`}
                     >
@@ -250,7 +250,7 @@ export function Sidebar() {
                       {count > 0 && (
                         <span
                           className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                            isActive ? 'bg-slate-200 text-slate-700' : 'bg-slate-200 text-slate-700'
+                            isActive ? 'bg-white/30 text-white' : 'bg-slate-200 text-slate-700'
                           }`}
                         >
                           {count}
