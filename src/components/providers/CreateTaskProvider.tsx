@@ -3,7 +3,6 @@
 import { createContext, type ReactNode, useContext } from 'react';
 import { TaskEditSidebar } from '@/components/tasks';
 import { useCreateTask } from '@/hooks';
-import type { Task } from '@/types';
 
 interface CreateTaskContextType {
   openCreateModal: (defaultCategoryId?: string, viewType?: string) => void;
@@ -13,14 +12,13 @@ const CreateTaskContext = createContext<CreateTaskContextType | undefined>(undef
 
 interface CreateTaskProviderProps {
   children: ReactNode;
-  tasks?: Task[]; // 任务列表，用于全局创建/编辑时的任务切换
 }
 
 /**
  * 全局创建任务提供者
  * 提供统一的创建任务侧边栏管理
  */
-export function CreateTaskProvider({ children, tasks = [] }: CreateTaskProviderProps) {
+export function CreateTaskProvider({ children }: CreateTaskProviderProps) {
   const { isOpen, defaultCategoryId, defaultViewType, openCreateModal, closeCreateModal } =
     useCreateTask();
 
@@ -37,7 +35,6 @@ export function CreateTaskProvider({ children, tasks = [] }: CreateTaskProviderP
         onClose={closeCreateModal}
         defaultCategoryId={defaultCategoryId}
         defaultViewType={defaultViewType}
-        tasks={tasks}
       />
     </CreateTaskContext.Provider>
   );

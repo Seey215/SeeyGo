@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { MainContent } from '@/components/layout/MainContent';
 import { Sidebar } from '@/components/layout/Sidebar';
-import { CreateTaskProviderWrapper } from '@/components/providers/CreateTaskProviderWrapper';
+import { CreateTaskProvider } from '@/components/providers/CreateTaskProvider';
 import { AppStoreProvider } from '@/store';
 
 const geistSans = Geist({
@@ -34,12 +34,12 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppStoreProvider>
-          <CreateTaskProviderWrapper>
+          <CreateTaskProvider>
             <div className="h-screen flex overflow-hidden">
               <Sidebar />
               <MainContent>{children}</MainContent>
             </div>
-          </CreateTaskProviderWrapper>
+          </CreateTaskProvider>
         </AppStoreProvider>
       </body>
     </html>

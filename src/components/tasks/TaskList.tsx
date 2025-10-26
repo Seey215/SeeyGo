@@ -31,10 +31,6 @@ export function TaskList({
     setEditingTask(undefined);
   };
 
-  const handleTaskChange = (task: Task) => {
-    setEditingTask(task);
-  };
-
   if (loading) {
     return (
       <div className="space-y-4">
@@ -86,13 +82,7 @@ export function TaskList({
       </div>
 
       {/* 任务编辑侧边栏 */}
-      <TaskEditSidebar
-        isOpen={showTaskSidebar}
-        onClose={handleCloseSidebar}
-        task={editingTask}
-        tasks={tasks}
-        onTaskChange={handleTaskChange}
-      />
+      <TaskEditSidebar isOpen={showTaskSidebar} onClose={handleCloseSidebar} task={editingTask} />
     </>
   );
 }
