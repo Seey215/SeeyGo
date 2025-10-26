@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { TaskList } from '@/components/tasks';
+import { QuickCreateTask, TaskList } from '@/components/tasks';
 import { useFilters, useTasks } from '@/hooks';
 import type { ViewType } from '@/types';
 import { filterTasks, getImportantTasks, getTodayTasks, sortTasks } from '@/utils/taskUtils';
@@ -95,6 +95,9 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
           emptyIcon={viewType === 'completed' ? '✅' : '📝'}
         />
       </div>
+
+      {/* 快速创建任务输入框 - 仅在非完成视图显示 */}
+      {viewType !== 'completed' && <QuickCreateTask categoryId={categoryId} />}
     </div>
   );
 }
