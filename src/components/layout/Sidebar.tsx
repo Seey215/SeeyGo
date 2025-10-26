@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { CategoryManager } from '@/components/categories/CategoryManager';
-import { useCreateTaskContext } from '@/components/providers/CreateTaskProvider';
 import { SearchBar } from '@/components/ui';
 import { useCategories, useTasks } from '@/hooks';
 import { NAVIGATION_ITEMS } from '@/utils/constants';
@@ -17,7 +16,6 @@ export function Sidebar() {
   const pathname = usePathname();
   const { categories } = useCategories();
   const { tasks } = useTasks();
-  const { openCreateModal } = useCreateTaskContext();
   const [showCategoryManager, setShowCategoryManager] = useState(false);
 
   // 计算任务统计
@@ -46,21 +44,6 @@ export function Sidebar() {
     return tasks.filter(task => task.categoryId === categoryId && !task.completed).length;
   };
 
-  // 根据当前路径获取视图类型
-  const getCurrentViewType = () => {
-    if (pathname === '/view/today') {
-      return 'today';
-    }
-    if (pathname === '/view/important') {
-      return 'important';
-    }
-    if (pathname?.startsWith('/view/category-')) {
-      const categoryId = pathname.replace('/view/category-', '');
-      return { categoryId };
-    }
-    return undefined;
-  };
-
   return (
     <aside className="w-80 bg-gradient-to-b from-slate-50 to-slate-100 border-r border-slate-200/60 flex flex-col h-full shadow-sm">
       {/* 用户信息区域 */}
@@ -79,33 +62,6 @@ export function Sidebar() {
       {/* 搜索区域 */}
       <div className="p-4 border-b border-slate-200/60">
         <SearchBar />
-      </div>
-
-      {/* 快速操作区域 */}
-      <div className="p-4 border-b border-slate-200/60">
-        <button
-          type="button"
-          onClick={() => {
-            const viewInfo = getCurrentViewType();
-            if (typeof viewInfo === 'object' && viewInfo.categoryId) {
-              openCreateModal(viewInfo.categoryId, 'category');
-            } else {
-              openCreateModal(undefined, viewInfo as string | undefined);
-            }
-          }}
-          className="w-full btn-gradient text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg"
-        >
-          <svg
-            className="w-4 h-4 mr-2 inline"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <title>添加图标</title>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          新建任务
-        </button>
       </div>
 
       {/* 导航菜单 */}
