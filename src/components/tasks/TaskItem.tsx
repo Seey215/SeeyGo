@@ -87,21 +87,6 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               {task.title}
             </h3>
 
-            {/* 任务描述 */}
-            {task.description && (
-              <p
-                className={`mt-2 text-sm leading-relaxed ${
-                  task.completed
-                    ? 'text-slate-400'
-                    : isTaskOverdue
-                      ? 'text-red-700'
-                      : 'text-slate-600'
-                }`}
-              >
-                {task.description}
-              </p>
-            )}
-
             {/* 任务元信息 */}
             <div className="flex items-center flex-wrap gap-2 mt-4">
               {/* 优先级标签 */}
@@ -110,6 +95,27 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
               >
                 {task.priority === 'high' ? '高' : task.priority === 'medium' ? '中' : '低'}
               </span>
+
+              {/* 描述标签 - 仅在有描述时显示 */}
+              {task.description && (
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-amber-100 to-amber-200 text-amber-800 shadow-sm">
+                  <svg
+                    className="w-3 h-3 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <title>描述图标</title>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                  描述
+                </span>
+              )}
 
               {/* 分类标签 */}
               {task.categoryId && (
