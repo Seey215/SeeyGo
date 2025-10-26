@@ -1,8 +1,9 @@
 'use client';
 
 import { createContext, type ReactNode, useContext } from 'react';
-import { TaskFormModal } from '@/components/tasks';
+import { TaskEditSidebar } from '@/components/tasks';
 import { useCreateTask } from '@/hooks';
+import type { Task } from '@/types';
 
 interface CreateTaskContextType {
   openCreateModal: (defaultCategoryId?: string, viewType?: string) => void;
@@ -12,13 +13,14 @@ const CreateTaskContext = createContext<CreateTaskContextType | undefined>(undef
 
 interface CreateTaskProviderProps {
   children: ReactNode;
+  tasks?: Task[]; // 任务列表，用于全局创建/编辑时的任务切换
 }
 
 /**
  * 全局创建任务提供者
- * 提供统一的创建任务模态框管理
+ * 提供统一的创建任务侧边栏管理
  */
-export function CreateTaskProvider({ children }: CreateTaskProviderProps) {
+export function CreateTaskProvider({ children, tasks = [] }: CreateTaskProviderProps) {
   const { isOpen, defaultCategoryId, defaultViewType, openCreateModal, closeCreateModal } =
     useCreateTask();
 
@@ -29,12 +31,13 @@ export function CreateTaskProvider({ children }: CreateTaskProviderProps) {
   return (
     <CreateTaskContext.Provider value={contextValue}>
       {children}
-      {/* 全局创建任务模态框 */}
-      <TaskFormModal
+      {/* 全局创建任务侧边栏 */}
+      <TaskEditSidebar
         isOpen={isOpen}
         onClose={closeCreateModal}
         defaultCategoryId={defaultCategoryId}
         defaultViewType={defaultViewType}
+        tasks={tasks}
       />
     </CreateTaskContext.Provider>
   );

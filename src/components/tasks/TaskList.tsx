@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { Task } from '@/types';
-import { TaskFormModal } from './TaskFormModal';
+import { TaskEditSidebar } from './TaskEditSidebar';
 import { TaskItem } from './TaskItem';
 
 interface TaskListProps {
@@ -19,16 +19,20 @@ export function TaskList({
   emptyIcon = '📝',
 }: TaskListProps) {
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
-  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [showTaskSidebar, setShowTaskSidebar] = useState(false);
 
   const handleEditTask = (task: Task) => {
     setEditingTask(task);
-    setShowTaskModal(true);
+    setShowTaskSidebar(true);
   };
 
-  const handleCloseModal = () => {
-    setShowTaskModal(false);
+  const handleCloseSidebar = () => {
+    setShowTaskSidebar(false);
     setEditingTask(undefined);
+  };
+
+  const handleTaskChange = (task: Task) => {
+    setEditingTask(task);
   };
 
   if (loading) {
@@ -81,8 +85,14 @@ export function TaskList({
         ))}
       </div>
 
-      {/* 任务编辑模态框 */}
-      <TaskFormModal isOpen={showTaskModal} onClose={handleCloseModal} task={editingTask} />
+      {/* 任务编辑侧边栏 */}
+      <TaskEditSidebar
+        isOpen={showTaskSidebar}
+        onClose={handleCloseSidebar}
+        task={editingTask}
+        tasks={tasks}
+        onTaskChange={handleTaskChange}
+      />
     </>
   );
 }
