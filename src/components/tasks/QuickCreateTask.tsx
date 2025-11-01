@@ -102,60 +102,87 @@ export function QuickCreateTask({ categoryId }: QuickCreateTaskProps) {
 
   return (
     <>
-      <div className="px-8 py-6 border-t border-slate-200/60 bg-white">
-        <div className="flex items-center space-x-3">
-          {/* 快速创建按钮图标 */}
-          <div className="flex-shrink-0">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center">
-              <svg
-                className="w-5 h-5 text-blue-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <title>快速创建</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
+      {/* 快速创建任务卡片 - 与TaskList风格一致 */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200">
+        <div className="p-4">
+          <div className="flex items-center space-x-3">
+            {/* 快速创建按钮图标 */}
+            <div className="flex-shrink-0">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <title>快速创建</title>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </div>
             </div>
+
+            {/* 输入框 */}
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="快速添加任务..."
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+                onKeyDown={handleKeyDown}
+                disabled={isOptimizing}
+                className="w-full px-3 py-2 text-base bg-transparent border-0 
+                  placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-0
+                  disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              />
+            </div>
+
+            {/* 状态提示 */}
+            {title && (
+              <div className="flex-shrink-0">
+                <div className="flex items-center space-x-2">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-100 text-xs font-medium text-slate-600">
+                    {categoryId ? '📁 已归类' : '📝 无分类'}
+                  </span>
+                  {isOptimizing && (
+                    <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* 输入框 */}
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="快速添加任务... 按 Enter 创建，Shift+Enter 由AI优化，Escape 取消"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={isOptimizing}
-              className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-lg
-                placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-0 focus:border-blue-400
-                hover:border-slate-300 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            />
-          </div>
-
-          {/* 帮助提示 */}
-          {title && (
-            <div className="flex-shrink-0 text-xs text-slate-500">
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-100">
-                {categoryId ? '📁 已归类' : '📝 无分类'}
-              </span>
+          {/* 快捷键提示 */}
+          <div className="mt-3 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-between text-xs text-slate-500">
+              <div className="flex items-center space-x-4">
+                <span className="flex items-center space-x-1.5">
+                  <kbd className="px-2 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-600 font-mono">
+                    Enter
+                  </kbd>
+                  <span>快速创建</span>
+                </span>
+                <span className="flex items-center space-x-1.5">
+                  <kbd className="px-2 py-0.5 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded text-blue-700 font-mono">
+                    Shift+Enter
+                  </kbd>
+                  <span>AI优化</span>
+                </span>
+                <span className="flex items-center space-x-1.5">
+                  <kbd className="px-2 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-600 font-mono">
+                    Esc
+                  </kbd>
+                  <span>取消</span>
+                </span>
+              </div>
+              {categoryId && <span className="text-slate-400">✨ 将自动分类到当前目录</span>}
             </div>
-          )}
+          </div>
         </div>
-
-        {/* 说明文字 */}
-        <p className="mt-2 text-xs text-slate-500" style={{ marginLeft: '52px' }}>
-          ℹ️ <span className="font-semibold">快速创建：</span>Enter 键，默认中优先级、无截止时间
-          {categoryId ? '，分类到当前目录' : ''}
-          {' | '}
-          <span className="font-semibold">AI优化：</span>Shift+Enter 键，由 AI 智能分析内容
-        </p>
       </div>
 
       {/* AI优化Modal */}

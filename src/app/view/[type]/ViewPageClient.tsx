@@ -86,9 +86,9 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
   }, [filteredByView, filters]);
 
   return (
-    <div className="h-full flex flex-col">
-      {/* 任务列表区域 */}
-      <div className="flex-1 overflow-y-auto p-8">
+    <div className="h-full flex flex-col bg-slate-100">
+      {/* 任务列表区域 - 占据90%高度 */}
+      <div className="flex-1 overflow-y-auto px-8 pt-8" style={{ minHeight: 0 }}>
         <TaskList
           tasks={finalTasks}
           emptyMessage={viewType === 'completed' ? '还没有已完成的任务' : '暂无任务'}
@@ -96,8 +96,12 @@ export function ViewPageClient({ params }: ViewPageClientProps) {
         />
       </div>
 
-      {/* 快速创建任务输入框 - 仅在非完成视图显示 */}
-      {viewType !== 'completed' && <QuickCreateTask categoryId={categoryId} />}
+      {/* 快速创建任务输入框 - 占据底部10%高度，仅在非完成视图显示 */}
+      {viewType !== 'completed' && (
+        <div className="flex-shrink-0 px-8 pb-8 pt-4">
+          <QuickCreateTask categoryId={categoryId} />
+        </div>
+      )}
     </div>
   );
 }
