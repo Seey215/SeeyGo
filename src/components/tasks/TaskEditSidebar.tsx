@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTasks } from '@/hooks';
 import type { Task, TaskFormData } from '@/types';
-import { TaskForm } from './TaskForm';
+import { TaskForm, type TaskFormRef } from './TaskForm';
 
 interface TaskEditSidebarProps {
   isOpen: boolean;
@@ -23,6 +23,41 @@ export function TaskEditSidebar({
 }: TaskEditSidebarProps) {
   const { createTask, updateTask } = useTasks();
   const [loading, setLoading] = React.useState(false);
+  const formRef = useRef<TaskFormRef>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // 处理点击外部区域失焦时保存并关闭
+  useEffect(() => {
+    const handleClickOutside = async (event: MouseEvent) => {
+      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        // 获取当前表单数据并保存
+        if (formRef.current && task) {
+          const formData = formRef.current.getCurrentFormData();
+          // 只有在标题不为空时才保存
+          if (formData.title.trim()) {
+            try {
+              await updateTask(task.id, formData);
+            } catch (error) {
+              console.error('保存任务失败:', error);
+            }
+          }
+        }
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      // 使用 setTimeout 延迟添加监听器，避免立即触发
+      const timer = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [isOpen, onClose, task, updateTask]);
 
   // 处理 ESC 键关闭
   useEffect(() => {
@@ -59,18 +94,15 @@ export function TaskEditSidebar({
     }
   };
 
-  const handleCancel = () => {
-    if (!loading) {
-      onClose();
-    }
-  };
-
   if (!isOpen) return null;
 
   const sidebarContent = (
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* 侧边栏 - 无背景遮罩，用户可继续操作背后的元素 */}
-      <div className="fixed right-0 top-0 bottom-0 w-full max-w-2xl bg-white shadow-2xl slide-in-right">
+      <div
+        ref={sidebarRef}
+        className="fixed right-0 top-0 bottom-0 w-full max-w-2xl bg-white shadow-2xl slide-in-right"
+      >
         <div className="h-full overflow-y-auto flex flex-col">
           {/* 头部 */}
           <div className="flex items-center justify-between p-6 border-b border-slate-200/60 flex-shrink-0">
@@ -102,9 +134,9 @@ export function TaskEditSidebar({
           {/* 内容 */}
           <div className="flex-1 overflow-y-auto px-6 py-6">
             <TaskForm
+              ref={formRef}
               task={task}
               onSubmit={handleSubmit}
-              onCancel={handleCancel}
               loading={loading}
               defaultCategoryId={defaultCategoryId}
               defaultViewType={defaultViewType}

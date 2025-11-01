@@ -1,16 +1,20 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Button, DatePicker, Dropdown, Input } from '@/components/ui';
 import { useCategories } from '@/hooks';
 import type { Priority, Task, TaskFormData } from '@/types';
 import { PRIORITY_CONFIG } from '@/utils/constants';
 
+export interface TaskFormRef {
+  getCurrentFormData: () => TaskFormData;
+}
+
 interface TaskFormProps {
   task?: Task;
   onSubmit: (data: TaskFormData) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
   loading?: boolean;
   defaultCategoryId?: string;
   defaultViewType?: string;
@@ -21,14 +25,10 @@ const priorityOptions = Object.entries(PRIORITY_CONFIG).map(([key, config]) => (
   label: config.label,
 }));
 
-export function TaskForm({
-  task,
-  onSubmit,
-  onCancel,
-  loading = false,
-  defaultCategoryId,
-  defaultViewType,
-}: TaskFormProps) {
+export const TaskForm = forwardRef<TaskFormRef, TaskFormProps>(function TaskForm(
+  { task, onSubmit, loading = false, defaultCategoryId, defaultViewType },
+  ref,
+) {
   const { categories } = useCategories();
 
   // 根据视图类型获取默认值
@@ -66,6 +66,11 @@ export function TaskForm({
 
   const [tagInput, setTagInput] = useState('');
   const [errors, setErrors] = useState<Partial<Record<keyof TaskFormData, string>>>({});
+
+  // 暴露获取当前表单数据的方法给父组件
+  useImperativeHandle(ref, () => ({
+    getCurrentFormData: () => formData,
+  }));
 
   // 表单验证
   const validateForm = (): boolean => {
@@ -250,13 +255,10 @@ export function TaskForm({
 
       {/* 操作按钮 */}
       <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200">
-        <Button type="button" variant="outline" onClick={onCancel} disabled={loading}>
-          取消
-        </Button>
         <Button type="submit" loading={loading}>
           {task ? '更新任务' : '创建任务'}
         </Button>
       </div>
     </form>
   );
-}
+});
