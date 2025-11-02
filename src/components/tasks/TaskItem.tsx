@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { type MouseEvent, useState } from 'react';
 import { useCategories, useTasks } from '@/hooks';
 import type { Task } from '@/types';
 import { formatRelativeTime, isOverdue } from '@/utils/dateUtils';
@@ -16,11 +16,15 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
   const { getCategoryName } = useCategories();
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleToggleComplete = () => {
+  const handleToggleComplete = (e: MouseEvent<HTMLButtonElement>) => {
+    // 阻止冒泡，避免触发外层的 onEdit 点击（打开编辑侧边栏）
+    e.stopPropagation();
     toggleComplete(task.id);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
+    // 阻止冒泡，避免触发外层的 onEdit 点击（打开编辑侧边栏）
+    e.stopPropagation();
     if (confirm('确定要删除这个任务吗？')) {
       setIsDeleting(true);
       try {
