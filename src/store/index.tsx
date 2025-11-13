@@ -15,8 +15,8 @@ import { DEFAULT_CATEGORIES } from '@/types';
 import { DEFAULT_FILTERS, DEFAULT_UI_STATE } from '@/utils/constants';
 import { STORAGE_KEYS, serializer, storage } from '@/utils/storage';
 import { generateId } from '@/utils/taskUtils';
-import { taskReducer } from './taskReducer';
 import { categoryReducer } from './categoryReducer';
+import { taskReducer } from './taskReducer';
 import { uiReducer } from './uiReducer';
 
 // 合并的状态类型
@@ -28,11 +28,7 @@ interface AppStoreState {
 }
 
 // 合并的 Action 类型
-type AppStoreAction =
-  | TaskAction
-  | CategoryAction
-  | FilterAction
-  | UIAction;
+type AppStoreAction = TaskAction | CategoryAction | FilterAction | UIAction;
 
 // Context 类型
 interface AppStoreContextType {
@@ -67,10 +63,7 @@ function appStoreReducer(state: AppStoreState, action: AppStoreAction): AppStore
   }
 
   // 其他状态相关 action
-  return uiReducer(
-    state,
-    action as FilterAction | UIAction,
-  );
+  return uiReducer(state, action as FilterAction | UIAction);
 }
 
 // 序列化函数

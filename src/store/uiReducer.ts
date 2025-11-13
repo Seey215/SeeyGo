@@ -5,10 +5,7 @@ import type { AppStoreState } from './types';
 /**
  * UI和过滤器相关 reducer
  */
-export function uiReducer(
-  state: AppStoreState,
-  action: FilterAction | UIAction,
-): AppStoreState {
+export function uiReducer(state: AppStoreState, action: FilterAction | UIAction): AppStoreState {
   switch (action.type) {
     // 过滤器相关
     case 'SET_SEARCH':

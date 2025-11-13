@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react';
+import { AppStoreContext } from '@/store';
 import type { Category, CategoryFormData } from '@/types';
 import { generateId } from '@/utils/taskUtils';
-import { AppStoreContext } from '@/store';
 
 /**
  * 分类管理 Hook

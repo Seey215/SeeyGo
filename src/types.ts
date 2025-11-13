@@ -116,8 +116,7 @@ export type TagAction =
   | { type: 'DELETE_TAG'; payload: string }
   | { type: 'SET_TAGS'; payload: Tag[] };
 
-export type FilterAction =
-  | { type: 'SET_SEARCH'; payload: string };
+export type FilterAction = { type: 'SET_SEARCH'; payload: string };
 
 export type UIAction =
   | { type: 'SET_VIEW'; payload: ViewType }
