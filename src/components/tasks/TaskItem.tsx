@@ -9,9 +9,10 @@ import { getPriorityColor } from '@/utils/taskUtils';
 interface TaskItemProps {
   task: Task;
   onEdit: (task: Task) => void;
+  isEditing?: boolean; // 新增：标记是否正在编辑
 }
 
-export function TaskItem({ task, onEdit }: TaskItemProps) {
+export function TaskItem({ task, onEdit, isEditing = false }: TaskItemProps) {
   const { toggleComplete, deleteTask } = useTasks();
   const { getCategoryName } = useCategories();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -42,16 +43,23 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
 
   const isTaskOverdue = task.dueDate && isOverdue(task.dueDate) && !task.completed;
 
+  const handleTaskClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onEdit(task);
+  };
+
   return (
     <button
-      onClick={() => onEdit(task)}
+      onClick={handleTaskClick}
       type="button"
       className={`w-full text-left bg-white rounded-xl border transition-all duration-200 card-hover cursor-pointer ${
-        task.completed
-          ? 'border-emerald-100 opacity-70 bg-emerald-50'
-          : isTaskOverdue
-            ? 'border-red-200 bg-red-50'
-            : 'border-slate-200 shadow-sm'
+        isEditing
+          ? 'border-blue-400 ring-2 ring-blue-100 shadow-md bg-blue-50'
+          : task.completed
+            ? 'border-emerald-100 opacity-70 bg-emerald-50'
+            : isTaskOverdue
+              ? 'border-red-200 bg-red-50'
+              : 'border-slate-200 shadow-sm'
       } ${isDeleting ? 'task-item-exit-active' : ''}`}
     >
       <div className="p-4">

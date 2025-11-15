@@ -26,51 +26,18 @@ export function TaskEditSidebar({
   const formRef = useRef<TaskFormRef>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // 处理点击外部区域失焦时保存并关闭
-  useEffect(() => {
-    const handleClickOutside = async (event: MouseEvent) => {
-      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-        // 获取当前表单数据并保存
-        if (formRef.current && task) {
-          const formData = formRef.current.getCurrentFormData();
-          // 只有在标题不为空时才保存
-          if (formData.title.trim()) {
-            try {
-              await updateTask(task.id, formData);
-            } catch (error) {
-              console.error('保存任务失败:', error);
-            }
-          }
-        }
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      // 使用 setTimeout 延迟添加监听器，避免立即触发
-      const timer = setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-      }, 100);
-
-      return () => {
-        clearTimeout(timer);
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }
-  }, [isOpen, onClose, task, updateTask]);
-
   // 处理 ESC 键关闭
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === 'Escape') {
         onClose();
       }
     };
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
-    }
+    document.addEventListener('keydown', handleEscape);
+    document.body.style.overflow = 'hidden';
 
     return () => {
       document.removeEventListener('keydown', handleEscape);

@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useFiltersStore } from '@/stores';
+import { useTasksStore } from '@/stores/tasksStore';
 import type { Task } from '@/types';
 import { TaskEditSidebar } from './TaskEditSidebar';
 import { TaskItem } from './TaskItem';
@@ -18,18 +20,64 @@ export function TaskList({
   emptyMessage = '暂无任务',
   emptyIcon = '📝',
 }: TaskListProps) {
-  const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
-  const [showTaskSidebar, setShowTaskSidebar] = useState(false);
+  // 从全局 UI Store 获取编辑状态
+  const { editingTaskId, editModalOpen, openEditModal, closeEditModal } = useFiltersStore();
 
+  // 从任务 Store 获取任务查询方法
+  const { getTask } = useTasksStore();
+
+  // 获取正在编辑的任务对象
+  const editingTask = editingTaskId ? getTask(editingTaskId) : undefined;
+
+  /**
+   * 效果：当编辑的任务被删除时，自动关闭 Modal
+   * 场景：用户在编辑中删除了其他地方的该任务
+   */
+  useEffect(() => {
+    if (editingTaskId && !getTask(editingTaskId)) {
+      closeEditModal();
+    }
+  }, [editingTaskId, getTask, closeEditModal]);
+
+  /**
+   * 处理任务点击事件
+   */
   const handleEditTask = (task: Task) => {
-    setEditingTask(task);
-    setShowTaskSidebar(true);
+    openEditModal(task.id);
   };
 
-  const handleCloseSidebar = () => {
-    setShowTaskSidebar(false);
-    setEditingTask(undefined);
-  };
+  /**
+   * 处理外部点击关闭 Modal
+   */
+  useEffect(() => {
+    if (!editModalOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+
+      // 如果点击在任务项上，不处理（让 openEditModal 处理切换）
+      if (target.closest('button[class*="card-hover"]')) {
+        return;
+      }
+
+      // 如果点击在侧边栏上，不处理
+      if (target.closest('[role="complementary"], .slide-in-right')) {
+        return;
+      }
+
+      // 其他外部点击，关闭 Modal
+      closeEditModal();
+    };
+
+    const timer = setTimeout(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [editModalOpen, closeEditModal]);
 
   if (loading) {
     return (
@@ -76,13 +124,17 @@ export function TaskList({
       <div className="space-y-4">
         {tasks.map((task, index) => (
           <div key={task.id} className="fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-            <TaskItem task={task} onEdit={handleEditTask} />
+            <TaskItem
+              task={task}
+              onEdit={handleEditTask}
+              isEditing={editingTaskId === task.id && editModalOpen}
+            />
           </div>
         ))}
       </div>
 
       {/* 任务编辑侧边栏 */}
-      <TaskEditSidebar isOpen={showTaskSidebar} onClose={handleCloseSidebar} task={editingTask} />
+      <TaskEditSidebar isOpen={editModalOpen} onClose={closeEditModal} task={editingTask} />
     </>
   );
 }
