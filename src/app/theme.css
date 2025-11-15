@@ -280,6 +280,43 @@ body {
 /* ============================================
    工具类
    ============================================ */
+
+/* 渐进出现动画，用于任务列表项 */
+.fade-in {
+  animation: slideInUp var(--animation-duration-normal) var(--animation-timing-function);
+}
+
+/* 轻微缩放的 hover 效果 */
+.hover-scale {
+  transition: transform var(--animation-duration-normal) var(--animation-timing-function);
+}
+
+.hover-scale:hover {
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* 任务删除时的退出动画 */
+.task-item-exit-active {
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity var(--animation-duration-normal) var(--animation-timing-function),
+    transform var(--animation-duration-normal) var(--animation-timing-function);
+}
+
+/* 复选框点击时的缩放动画 */
+.checkbox-animate {
+  transition:
+    transform var(--animation-duration-fast) var(--animation-timing-function),
+    box-shadow var(--animation-duration-fast) var(--animation-timing-function),
+    background-color var(--animation-duration-fast) var(--animation-timing-function),
+    border-color var(--animation-duration-fast) var(--animation-timing-function);
+}
+
+.checkbox-animate:active {
+  transform: scale(0.9);
+}
+
 .text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;

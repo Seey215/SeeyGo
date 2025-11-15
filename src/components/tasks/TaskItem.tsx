@@ -22,18 +22,21 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
     toggleComplete(task.id);
   };
 
-  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     // 阻止冒泡，避免触发外层的 onEdit 点击（打开编辑侧边栏）
     e.stopPropagation();
     if (confirm('确定要删除这个任务吗？')) {
+      // 先触发删除动画，动画时长为 250ms（--animation-duration-normal）
       setIsDeleting(true);
-      try {
-        deleteTask(task.id);
-      } catch (error) {
-        console.error('删除任务失败:', error);
-      } finally {
-        setIsDeleting(false);
-      }
+      // 动画结束后真正删除任务
+      setTimeout(() => {
+        try {
+          deleteTask(task.id);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error('删除任务失败:', error);
+        }
+      }, 250);
     }
   };
 
@@ -45,11 +48,11 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
       type="button"
       className={`w-full text-left bg-white rounded-xl border transition-all duration-200 card-hover cursor-pointer ${
         task.completed
-          ? 'border-slate-200 opacity-60 bg-slate-50'
+          ? 'border-emerald-100 opacity-70 bg-emerald-50'
           : isTaskOverdue
             ? 'border-red-200 bg-red-50'
             : 'border-slate-200 shadow-sm'
-      } ${isDeleting ? 'opacity-50' : ''}`}
+      } ${isDeleting ? 'task-item-exit-active' : ''}`}
     >
       <div className="p-4">
         <div className="flex items-start space-x-3">
