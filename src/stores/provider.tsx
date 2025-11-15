@@ -2,23 +2,15 @@
 
 import type React from 'react';
 import { createContext, type ReactNode, useEffect, useReducer } from 'react';
-import { categoryReducer } from '@/store/categoryReducer';
-import { taskReducer } from '@/store/taskReducer';
-import { uiReducer } from '@/store/uiReducer';
-import type {
-  AppState,
-  Category,
-  CategoryAction,
-  FilterAction,
-  Task,
-  TaskAction,
-  UIAction,
-} from '@/types';
+import type { Category, CategoryAction, FilterAction, Task, TaskAction, UIAction } from '@/types';
 import { DEFAULT_CATEGORIES } from '@/types';
 import { DEFAULT_FILTERS, DEFAULT_UI_STATE } from '@/utils/constants';
 import { STORAGE_KEYS, serializer, storage } from '@/utils/storage';
 import { generateId } from '@/utils/taskUtils';
+import { categoryReducer } from './categoryReducer';
 import type { AppStoreState } from './contextTypes';
+import { taskReducer } from './taskReducer';
+import { uiReducer } from './uiReducer';
 
 type AppStoreAction = TaskAction | CategoryAction | FilterAction | UIAction;
 

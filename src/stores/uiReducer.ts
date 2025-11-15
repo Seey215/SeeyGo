@@ -1,6 +1,5 @@
-import type { AppStoreState } from '@/stores/contextTypes';
 import type { FilterAction, UIAction } from '@/types';
-import { DEFAULT_FILTERS } from '@/utils/constants';
+import type { AppStoreState } from './contextTypes';
 
 /**
  * UI和过滤器相关 reducer
