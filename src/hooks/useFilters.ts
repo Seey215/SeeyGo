@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react';
-import { AppStoreContext } from '@/store';
+import { AppStoreContext } from '@/stores';
 
 /**
  * 搜索管理 Hook

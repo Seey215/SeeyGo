@@ -4,7 +4,7 @@ import './globals.css';
 import { MainContent } from '@/components/layout/MainContent';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { CreateTaskProvider } from '@/components/providers/CreateTaskProvider';
-import { AppStoreProvider } from '@/store';
+import { AppStoreProvider } from '@/stores';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

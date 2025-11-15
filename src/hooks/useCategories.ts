@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react';
-import { AppStoreContext } from '@/store';
+import { AppStoreContext } from '@/stores';
 import type { Category, CategoryFormData } from '@/types';
 import { generateId } from '@/utils/taskUtils';
 

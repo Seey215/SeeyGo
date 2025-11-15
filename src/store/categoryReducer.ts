@@ -1,5 +1,5 @@
+import type { AppStoreState } from '@/stores/contextTypes';
 import type { Category, CategoryAction } from '@/types';
-import type { AppStoreState } from './types';
 
 /**
  * 分类相关 reducer

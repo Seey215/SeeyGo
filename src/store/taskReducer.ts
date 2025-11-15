@@ -1,6 +1,6 @@
+import type { AppStoreState } from '@/stores/contextTypes';
 import type { Task, TaskAction } from '@/types';
 import { toggleTaskComplete } from '@/utils/taskUtils';
-import type { AppStoreState } from './types';
 
 /**
  * 任务相关 reducer
