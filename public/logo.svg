@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <!-- 主渐变 - 科技蓝紫色 -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+    </linearGradient>
+    <!-- AI 光效渐变 -->
+    <linearGradient id="aiGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22D3EE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <!-- 闪光效果 -->
+    <linearGradient id="sparkle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDE047;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FBBF24;stop-opacity:1" />
+    </linearGradient>
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#6366F1" flood-opacity="0.3"/>
+    </filter>
+    <!-- 发光效果 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景圆形 -->
+  <circle cx="60" cy="60" r="54" fill="url(#mainGradient)" filter="url(#shadow)"/>
+  
+  <!-- 内部圆环装饰 -->
+  <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  
+  <!-- 勾选符号 - 主体 -->
+  <g transform="translate(60, 60)">
+    <!-- 勾选圆环背景 -->
+    <circle cx="0" cy="0" r="28" fill="rgba(255,255,255,0.95)" />
+    
+    <!-- 勾选标记 -->
+    <path 
+      d="M -12 2 L -4 10 L 14 -10" 
+      fill="none" 
+      stroke="url(#mainGradient)" 
+      stroke-width="5" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+  </g>
+  
+  <!-- AI 魔法星星 - 右上角 -->
+  <g transform="translate(85, 25)" filter="url(#glow)">
+    <!-- 四角星 -->
+    <path 
+      d="M 0 -8 L 2 -2 L 8 0 L 2 2 L 0 8 L -2 2 L -8 0 L -2 -2 Z" 
+      fill="url(#sparkle)"
+    />
+    <!-- 小光点 -->
+    <circle cx="6" cy="-6" r="1.5" fill="#FDE047" opacity="0.8"/>
+    <circle cx="-4" cy="5" r="1" fill="#FDE047" opacity="0.6"/>
+  </g>
+  
+  <!-- AI 光环弧线 -->
+  <path 
+    d="M 75 35 Q 95 45 90 65" 
+    fill="none" 
+    stroke="url(#aiGlow)" 
+    stroke-width="2" 
+    stroke-linecap="round"
+    opacity="0.8"
+    filter="url(#glow)"
+  />
+  
+  <!-- 小光点装饰 -->
+  <circle cx="92" cy="50" r="2" fill="url(#aiGlow)" opacity="0.9"/>
+  <circle cx="88" cy="68" r="1.5" fill="url(#aiGlow)" opacity="0.7"/>
+  
+  <!-- 左下角小火箭/速度线条 - 表示效率 -->
+  <g transform="translate(28, 90)" opacity="0.9">
+    <path 
+      d="M 0 0 L 8 -3" 
+      stroke="rgba(255,255,255,0.7)" 
+      stroke-width="2" 
+      stroke-linecap="round"
+    />
+    <path 
+      d="M 2 4 L 12 0" 
+      stroke="rgba(255,255,255,0.5)" 
+      stroke-width="1.5" 
+      stroke-linecap="round"
+    />
+    <path 
+      d="M 6 7 L 14 4" 
+      stroke="rgba(255,255,255,0.3)" 
+      stroke-width="1" 
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

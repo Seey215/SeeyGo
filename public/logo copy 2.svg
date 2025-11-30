@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <!-- 主渐变 - 专业蓝绿色调，体现秘书的专业与可靠 -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14B8A6;stop-opacity:1" />
+    </linearGradient>
+    <!-- 深色渐变 - 用于字母 -->
+    <linearGradient id="darkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0369A1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0D9488;stop-opacity:1" />
+    </linearGradient>
+    <!-- AI 光效渐变 - 紫色代表智能 -->
+    <linearGradient id="aiGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A855F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <!-- 文档渐变 -->
+    <linearGradient id="docGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0FDFA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#CCFBF1;stop-opacity:1" />
+    </linearGradient>
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0EA5E9" flood-opacity="0.25"/>
+    </filter>
+    <!-- 发光效果 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景圆形 - 圆角矩形更现代 -->
+  <rect x="6" y="6" width="108" height="108" rx="24" ry="24" fill="url(#mainGradient)" filter="url(#shadow)"/>
+  
+  <!-- 内部装饰线 -->
+  <rect x="12" y="12" width="96" height="96" rx="20" ry="20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  
+  <!-- 文档/笔记本图标 - 代表笔记功能 -->
+  <g transform="translate(28, 28)">
+    <!-- 文档背景 -->
+    <rect x="0" y="0" width="44" height="56" rx="4" ry="4" fill="url(#docGradient)" opacity="0.95"/>
+    <!-- 文档折角 -->
+    <path d="M 32 0 L 44 12 L 32 12 Z" fill="rgba(14,165,233,0.2)"/>
+    <!-- 文档线条 - 代表文字/任务 -->
+    <rect x="6" y="18" width="24" height="3" rx="1.5" fill="url(#mainGradient)" opacity="0.7"/>
+    <rect x="6" y="26" width="32" height="3" rx="1.5" fill="url(#mainGradient)" opacity="0.5"/>
+    <rect x="6" y="34" width="20" height="3" rx="1.5" fill="url(#mainGradient)" opacity="0.4"/>
+    <!-- 勾选框 - 代表Todo -->
+    <rect x="6" y="44" width="8" height="8" rx="2" fill="none" stroke="url(#mainGradient)" stroke-width="1.5"/>
+    <path d="M 8 48 L 10 50 L 13 46" fill="none" stroke="url(#mainGradient)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="18" y="46" width="18" height="3" rx="1.5" fill="url(#mainGradient)" opacity="0.6"/>
+  </g>
+  
+  <!-- S 字母 - Seey的首字母，代表Secretary -->
+  <g transform="translate(60, 52)">
+    <text 
+      x="0" 
+      y="0" 
+      font-family="Arial Black, Arial, sans-serif" 
+      font-size="36" 
+      font-weight="900" 
+      fill="white"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      opacity="0.95"
+    >S</text>
+  </g>
+  
+  <!-- GO 箭头 - 代表行动力与前进 -->
+  <g transform="translate(72, 72)">
+    <!-- 动态箭头 -->
+    <path 
+      d="M 0 8 L 20 8 L 20 2 L 32 12 L 20 22 L 20 16 L 0 16 Z" 
+      fill="white"
+      opacity="0.95"
+    />
+    <!-- 速度线 -->
+    <path d="M -8 10 L -2 10" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <path d="M -6 14 L 0 14" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+  </g>
+  
+  <!-- AI 光环 - 代表智能 -->
+  <g filter="url(#glow)">
+    <!-- 环绕的智能光点 -->
+    <circle cx="95" cy="25" r="4" fill="url(#aiGlow)" opacity="0.9"/>
+    <circle cx="102" cy="38" r="2.5" fill="url(#aiGlow)" opacity="0.7"/>
+    <circle cx="100" cy="52" r="1.5" fill="url(#aiGlow)" opacity="0.5"/>
+    
+    <!-- AI 连接弧线 -->
+    <path 
+      d="M 92 28 Q 105 35 100 50" 
+      fill="none" 
+      stroke="url(#aiGlow)" 
+      stroke-width="1.5" 
+      stroke-linecap="round"
+      opacity="0.6"
+      stroke-dasharray="4 2"
+    />
+  </g>
+  
+  <!-- 左上角小星星 - 代表智能闪光 -->
+  <g transform="translate(22, 22)" opacity="0.8">
+    <path 
+      d="M 0 -5 L 1.2 -1.2 L 5 0 L 1.2 1.2 L 0 5 L -1.2 1.2 L -5 0 L -1.2 -1.2 Z" 
+      fill="white"
+    />
+  </g>
+</svg>
