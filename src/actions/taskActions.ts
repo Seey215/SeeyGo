@@ -6,10 +6,10 @@
 import { logger } from '@/lib/logger';
 import { metrics } from '@/lib/metrics';
 import { rafQueue } from '@/lib/rafQueue';
-import type { Task } from '@/lib/types';
 import { useCategoriesStore } from '@/stores/categoriesStore';
-import { useUIStore } from '@/stores/filtersStore';
 import { useTasksStore } from '@/stores/tasksStore';
+import { useUIStore } from '@/stores/uiStore';
+import type { Task } from '@/types';
 
 /**
  * 创建新任务
@@ -19,7 +19,9 @@ export const createTaskAction = async (task: Task): Promise<Task | null> => {
 
   try {
     useTasksStore.getState().addTask(task);
-    useCategoriesStore.getState().incrementTaskCount(task.categoryId);
+    if (task.categoryId) {
+      useCategoriesStore.getState().incrementTaskCount(task.categoryId);
+    }
 
     logger.info('Task created successfully', {
       taskId: task.id,
@@ -77,7 +79,9 @@ export const deleteTaskAction = async (id: string): Promise<boolean> => {
     }
 
     useTasksStore.getState().deleteTask(id);
-    useCategoriesStore.getState().decrementTaskCount(task.categoryId);
+    if (task.categoryId) {
+      useCategoriesStore.getState().decrementTaskCount(task.categoryId);
+    }
 
     logger.info('Task deleted successfully', { taskId: id });
     timer();
@@ -128,7 +132,7 @@ export const deleteMultipleTasksAction = async (ids: string[]): Promise<boolean>
     // 统计每个分类被删除的任务数
     ids.forEach(id => {
       const task = tasks.find(t => t.id === id);
-      if (task) {
+      if (task?.categoryId) {
         tasksByCategory[task.categoryId] = (tasksByCategory[task.categoryId] || 0) + 1;
       }
     });

@@ -11,22 +11,36 @@ export interface Task {
   description?: string;
   completed: boolean;
   priority: Priority;
-  dueDate?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  dueDate?: string; // ISO 日期字符串，便于序列化存储
+  createdAt: string;
+  updatedAt: string;
   categoryId?: string;
   tags: string[];
+  aiSuggestion?: string;
 }
 
 export interface TaskFormData {
   title: string;
   description?: string;
   priority: Priority;
-  dueDate?: Date;
+  dueDate?: string;
   categoryId?: string;
   tags: string[];
 }
 
+// ================================
+// 筛选器相关类型
+// ================================
+
+export interface Filter {
+  categoryId?: string;
+  completed?: boolean;
+  priority?: Priority;
+  tags?: string[];
+  searchQuery?: string;
+}
+
+// 兼容旧的 TaskFilters 接口
 export interface TaskFilters {
   search: string;
 }
@@ -39,9 +53,10 @@ export interface Category {
   id: string;
   name: string;
   color: string;
+  icon?: string;
   taskCount: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CategoryFormData {
@@ -65,7 +80,7 @@ export interface Tag {
   id: string;
   name: string;
   usageCount: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface TagFormData {
@@ -79,10 +94,22 @@ export interface TagFormData {
 export type ViewType = 'all' | 'today' | 'important' | 'completed' | 'category';
 
 export interface UIState {
-  currentView: ViewType;
-  sidebarCollapsed: boolean;
-  showCompleted: boolean;
-  activeModal: string | null;
+  sidebarOpen: boolean;
+  selectedTaskId?: string;
+  editingTaskId?: string;
+  isLoading: boolean;
+  error?: string;
+  toast?: {
+    id: string;
+    message: string;
+    type: 'success' | 'error' | 'info' | 'warning';
+    duration?: number;
+  };
+  // 兼容旧的 UI 状态
+  currentView?: ViewType;
+  sidebarCollapsed?: boolean;
+  showCompleted?: boolean;
+  activeModal?: string | null;
 }
 
 export interface AppState {
@@ -123,3 +150,25 @@ export type UIAction =
   | { type: 'TOGGLE_SIDEBAR' }
   | { type: 'SET_SHOW_COMPLETED'; payload: boolean }
   | { type: 'SET_ACTIVE_MODAL'; payload: string | null };
+
+// ================================
+// API 响应类型
+// ================================
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  code?: number;
+}
+
+export interface PaginationInfo {
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  pagination: PaginationInfo;
+}

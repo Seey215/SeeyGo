@@ -1,4 +1,4 @@
-import type { Category, Priority, Task, TaskFilters } from '@/types';
+import type { Priority, Task, TaskFilters } from '@/types';
 import { isOverdue, isToday } from './dateUtils';
 
 /**
@@ -19,11 +19,11 @@ export function createTask(data: {
   title: string;
   description?: string;
   priority?: Priority;
-  dueDate?: Date;
+  dueDate?: string;
   categoryId?: string;
   tags?: string[];
 }): Task {
-  const now = new Date();
+  const now = new Date().toISOString();
   return {
     id: generateId(),
     title: data.title,
@@ -45,7 +45,7 @@ export function updateTask(task: Task, updates: Partial<Omit<Task, 'id' | 'creat
   return {
     ...task,
     ...updates,
-    updatedAt: new Date(),
+    updatedAt: new Date().toISOString(),
   };
 }
 
@@ -101,7 +101,7 @@ export function getPriorityColor(priority: Priority): string {
  */
 export function sortTasks(tasks: Task[]): Task[] {
   return [...tasks].sort((a, b) => {
-    return b.createdAt.getTime() - a.createdAt.getTime();
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 }
 
@@ -132,7 +132,7 @@ export function filterTasks(tasks: Task[], filters: TaskFilters): Task[] {
 export function getTodayTasks(tasks: Task[]): Task[] {
   return tasks.filter(task => {
     if (!task.dueDate) return false;
-    return isToday(task.dueDate);
+    return isToday(new Date(task.dueDate));
   });
 }
 
@@ -148,7 +148,8 @@ export function getImportantTasks(tasks: Task[]): Task[] {
     if (task.dueDate) {
       const threeDaysFromNow = new Date();
       threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
-      return task.dueDate <= threeDaysFromNow && !isOverdue(task.dueDate);
+      const dueDate = new Date(task.dueDate);
+      return dueDate <= threeDaysFromNow && !isOverdue(dueDate);
     }
 
     return false;
@@ -160,7 +161,7 @@ export function getImportantTasks(tasks: Task[]): Task[] {
  */
 export function getOverdueTasks(tasks: Task[]): Task[] {
   return tasks.filter(task => {
-    return task.dueDate ? isOverdue(task.dueDate) && !task.completed : false;
+    return task.dueDate ? isOverdue(new Date(task.dueDate)) && !task.completed : false;
   });
 }
 

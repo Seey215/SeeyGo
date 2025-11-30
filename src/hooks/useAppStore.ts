@@ -3,13 +3,13 @@
  * 用于连接 Zustand stores 和 React 组件
  */
 
-import { useCallback, useMemo } from 'react';
-import type { Filter, Task } from '@/lib/types';
+import { useMemo } from 'react';
 import { filterTasks, sortByPriority } from '@/services/taskService';
 import { useCategoriesStore } from '@/stores/categoriesStore';
-import { useUIStore } from '@/stores/filtersStore';
+import { useFiltersStore } from '@/stores/filtersStore';
 import { useTasksStore } from '@/stores/tasksStore';
-import { useFiltersStore } from '@/stores/uiStore';
+import { useUIStore } from '@/stores/uiStore';
+import type { Filter, Task } from '@/types';
 
 /**
  * 使用过滤后的任务列表
@@ -33,21 +33,18 @@ export const useTaskActions = () => {
   const deleteTask = useTasksStore(state => state.deleteTask);
   const toggleTask = useTasksStore(state => state.toggleTask);
 
-  return useCallback(
-    () => ({
-      addTask,
-      updateTask,
-      deleteTask,
-      toggleTask,
-    }),
-    [addTask, updateTask, deleteTask, toggleTask],
-  ).call(null);
+  return {
+    addTask,
+    updateTask,
+    deleteTask,
+    toggleTask,
+  };
 };
 
 /**
- * 使用分类列表
+ * 使用分类列表（仅数组）
  */
-export const useCategories = () => {
+export const useCategoryList = () => {
   return useCategoriesStore(state => state.categories);
 };
 

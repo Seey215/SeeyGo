@@ -82,7 +82,7 @@ function deserializeCategories(data: Record<string, unknown>[]): Category[] {
 }
 
 function createDefaultCategories(): Category[] {
-  const now = new Date();
+  const now = new Date().toISOString();
   return DEFAULT_CATEGORIES.map(category => ({
     ...category,
     id: generateId(),

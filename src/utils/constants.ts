@@ -63,6 +63,12 @@ export const DEFAULT_UI_STATE = {
   sidebarCollapsed: false,
   showCompleted: true,
   activeModal: null,
+  sidebarOpen: true,
+  selectedTaskId: undefined,
+  editingTaskId: undefined,
+  isLoading: false,
+  error: undefined,
+  toast: undefined,
 };
 
 // 导航菜单配置

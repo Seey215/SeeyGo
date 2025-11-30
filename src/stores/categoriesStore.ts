@@ -4,7 +4,7 @@
 
 import { create } from 'zustand';
 import { logger } from '@/lib/logger';
-import type { Category } from '@/lib/types';
+import type { Category } from '@/types';
 import { STORAGE_KEYS, storage } from '@/utils/storage';
 
 interface CategoriesState {

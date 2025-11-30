@@ -1,96 +1,60 @@
 /**
- * UI Store - 使用 Zustand 管理 UI 状态
- * 包括侧边栏、选中任务、加载状态等
+ * Filters Store - 使用 Zustand 管理筛选状态
  */
 
 import { create } from 'zustand';
-import type { UIState } from '@/lib/types';
+import { logger } from '@/lib/logger';
+import type { Filter } from '@/types';
 
-interface UIStoreState extends UIState {
+interface FiltersState extends Filter {
   // 行为
-  setSidebarOpen: (open: boolean) => void;
-  toggleSidebar: () => void;
-  setSelectedTaskId: (id: string | undefined) => void;
-  setEditingTaskId: (id: string | undefined) => void;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | undefined) => void;
-  showToast: (
-    message: string,
-    type: 'success' | 'error' | 'info' | 'warning',
-    duration?: number,
-  ) => void;
-  closeToast: () => void;
+  setFilters: (filters: Filter) => void;
+  setCategoryFilter: (categoryId: string | undefined) => void;
+  setCompletedFilter: (completed: boolean | undefined) => void;
+  setPriorityFilter: (priority: Filter['priority']) => void;
+  setTagsFilter: (tags: string[] | undefined) => void;
+  setSearchQuery: (query: string | undefined) => void;
+  clearFilters: () => void;
 }
 
-const defaultUIState: UIState = {
-  sidebarOpen: true,
-  selectedTaskId: undefined,
-  editingTaskId: undefined,
-  isLoading: false,
-  error: undefined,
-  toast: undefined,
+const defaultFilters: Filter = {
+  categoryId: undefined,
+  completed: undefined,
+  priority: undefined,
+  tags: undefined,
+  searchQuery: undefined,
 };
 
-let toastTimeoutId: NodeJS.Timeout | null = null;
+export const useFiltersStore = create<FiltersState>(set => ({
+  ...defaultFilters,
 
-export const useUIStore = create<UIStoreState>(set => ({
-  ...defaultUIState,
-
-  setSidebarOpen: (open: boolean) => {
-    set({ sidebarOpen: open });
+  setFilters: (filters: Filter) => {
+    set(filters);
+    logger.debug('Filters updated');
   },
 
-  toggleSidebar: () => {
-    set((state: UIStoreState) => ({
-      sidebarOpen: !state.sidebarOpen,
-    }));
+  setCategoryFilter: (categoryId: string | undefined) => {
+    set({ categoryId });
   },
 
-  setSelectedTaskId: (id: string | undefined) => {
-    set({ selectedTaskId: id });
+  setCompletedFilter: (completed: boolean | undefined) => {
+    set({ completed });
   },
 
-  setEditingTaskId: (id: string | undefined) => {
-    set({ editingTaskId: id });
+  setPriorityFilter: (priority: Filter['priority']) => {
+    set({ priority });
   },
 
-  setLoading: (loading: boolean) => {
-    set({ isLoading: loading });
+  setTagsFilter: (tags: string[] | undefined) => {
+    set({ tags });
   },
 
-  setError: (error: string | undefined) => {
-    set({ error });
+  setSearchQuery: (query: string | undefined) => {
+    set({ searchQuery: query });
   },
 
-  showToast: (
-    message: string,
-    type: 'success' | 'error' | 'info' | 'warning',
-    duration: number = 3000,
-  ) => {
-    if (toastTimeoutId) {
-      clearTimeout(toastTimeoutId);
-    }
-
-    set({
-      toast: {
-        id: `${Date.now()}`,
-        message,
-        type,
-        duration,
-      },
-    });
-
-    toastTimeoutId = setTimeout(() => {
-      set({ toast: undefined });
-      toastTimeoutId = null;
-    }, duration);
-  },
-
-  closeToast: () => {
-    if (toastTimeoutId) {
-      clearTimeout(toastTimeoutId);
-      toastTimeoutId = null;
-    }
-    set({ toast: undefined });
+  clearFilters: () => {
+    set(defaultFilters);
+    logger.debug('Filters cleared');
   },
 }));

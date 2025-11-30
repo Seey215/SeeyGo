@@ -1,7 +1,6 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { useTasks } from '@/hooks';
 import { CreateTaskProvider } from './CreateTaskProvider';
 
 interface CreateTaskProviderWrapperProps {
@@ -9,10 +8,8 @@ interface CreateTaskProviderWrapperProps {
 }
 
 /**
- * CreateTaskProvider 的包装器，用于获取任务列表
+ * CreateTaskProvider 的包装器
  */
 export function CreateTaskProviderWrapper({ children }: CreateTaskProviderWrapperProps) {
-  const { tasks } = useTasks();
-
-  return <CreateTaskProvider tasks={tasks}>{children}</CreateTaskProvider>;
+  return <CreateTaskProvider>{children}</CreateTaskProvider>;
 }

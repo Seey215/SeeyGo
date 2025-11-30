@@ -3,7 +3,7 @@
  * 包括数据转换、过滤、统计等纯业务逻辑
  */
 
-import type { Filter, Task } from '@/lib/types';
+import type { Filter, Task } from '@/types';
 
 /**
  * 根据过滤条件过滤任务列表

@@ -4,9 +4,9 @@
 
 import { logger } from '@/lib/logger';
 import { metrics } from '@/lib/metrics';
-import type { Category } from '@/lib/types';
 import { useCategoriesStore } from '@/stores/categoriesStore';
-import { useUIStore } from '@/stores/filtersStore';
+import { useUIStore } from '@/stores/uiStore';
+import type { Category } from '@/types';
 
 /**
  * 创建新分类

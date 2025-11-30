@@ -18,7 +18,7 @@ export function useCategories() {
   // 创建分类
   const createCategory = useCallback(
     (data: CategoryFormData) => {
-      const now = new Date();
+      const now = new Date().toISOString();
       const category: Category = {
         id: generateId(),
         name: data.name,
@@ -42,7 +42,7 @@ export function useCategories() {
       const updatedCategory: Category = {
         ...existingCategory,
         ...updates,
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       };
       dispatch({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
       return updatedCategory;

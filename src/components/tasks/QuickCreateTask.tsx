@@ -65,7 +65,7 @@ export function QuickCreateTask({ categoryId }: QuickCreateTaskProps) {
       title: optimizedData.title,
       description: optimizedData.description || '',
       priority: optimizedData.priority || 'medium',
-      dueDate: optimizedData.dueDate,
+      dueDate: optimizedData.dueDate?.toISOString(),
       categoryId: categoryId || undefined,
       tags: optimizedData.tags || [],
     };

@@ -2,7 +2,7 @@
  * Categories Service - 处理分类数据逻辑
  */
 
-import type { Category } from '@/lib/types';
+import type { Category } from '@/types';
 
 /**
  * 按任务数量排序分类

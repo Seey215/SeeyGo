@@ -59,7 +59,6 @@ src/
 │   │   ├── Modal.tsx
 │   │   └── ...
 │   ├── layout/            # 布局组件
-│   │   ├── Navbar.tsx
 │   │   ├── Sidebar.tsx
 │   │   └── MainContent.tsx
 │   ├── tasks/             # 任务相关组件
@@ -67,19 +66,42 @@ src/
 │   │   ├── TaskItem.tsx
 │   │   ├── TaskForm.tsx
 │   │   └── ...
-│   └── categories/        # 分类相关组件
-│       └── CategoryManager.tsx
+│   ├── categories/        # 分类相关组件
+│   │   └── CategoryManager.tsx
+│   ├── ai/                # AI 功能组件
+│   │   └── TaskOptimizeModal.tsx
+│   └── providers/         # 上下文提供者
+│       └── CreateTaskProvider.tsx
 ├── hooks/                 # 自定义Hooks
 │   ├── useTasks.ts       # 任务管理
 │   ├── useCategories.ts  # 分类管理
 │   ├── useFilters.ts     # 过滤器管理
+│   ├── useAppStore.ts    # Zustand store 封装
+│   ├── useAIOptimizeTask.ts  # AI 优化任务
 │   └── useLocalStorage.ts # 本地存储
-├── store/                 # 状态管理
-│   ├── index.tsx         # 主store和Provider
-│   ├── taskReducer.ts    # 任务reducer
-│   ├── categoryReducer.ts # 分类reducer
-│   ├── uiReducer.ts      # UI和过滤器reducer
-│   └── types.ts          # 共享类型定义
+├── stores/                # 状态管理 (Zustand + Context)
+│   ├── provider.tsx      # Context Provider
+│   ├── tasksStore.ts     # 任务状态 (Zustand)
+│   ├── categoriesStore.ts # 分类状态 (Zustand)
+│   ├── filtersStore.ts   # 过滤器状态 (Zustand)
+│   ├── uiStore.ts        # UI 状态 (Zustand)
+│   └── *Reducer.ts       # 旧版 Reducer (Context)
+├── services/              # 业务逻辑层
+│   ├── taskService.ts    # 任务业务逻辑
+│   └── categoryService.ts # 分类业务逻辑
+├── actions/               # 副作用处理层
+│   ├── taskActions.ts    # 任务副作用
+│   └── categoryActions.ts # 分类副作用
+├── lib/                   # 工具库
+│   ├── logger.ts         # 日志系统
+│   ├── metrics.ts        # 性能指标
+│   ├── lruMap.ts         # LRU 缓存
+│   └── rafQueue.ts       # RAF 队列
+├── ai/                    # AI 功能模块
+│   ├── config.ts         # AI 配置
+│   ├── types.ts          # AI 类型定义
+│   ├── prompts/          # 提示词
+│   └── services/         # AI 服务
 ├── utils/                 # 工具函数
 │   ├── constants.ts
 │   ├── dateUtils.ts
@@ -101,10 +123,15 @@ src/
 - **业务层** (`components/tasks/`, `components/categories/`): 业务逻辑组件
 - **布局层** (`components/layout/`): 页面布局组件
 
-#### 🔄 状态管理
-- **模块化Reducer**: 按功能域拆分reducer，便于维护
-- **类型安全**: 完整的TypeScript类型定义
-- **Context模式**: 使用React Context + useReducer模式
+#### 🔄 状态管理（混合架构）
+- **Zustand Stores**: 细粒度状态管理（tasksStore, categoriesStore, filtersStore, uiStore）
+- **Context + Reducer**: 遗留的全局状态（逐步迁移中）
+- **类型安全**: 完整的TypeScript类型定义，统一在 `types.ts`
+
+#### 📦 分层架构
+- **Services 层**: 纯业务逻辑，不包含副作用
+- **Actions 层**: 处理副作用（日志、指标、通知）
+- **Hooks 层**: 连接 Store 和组件的桥梁
 
 #### 📦 导入优化
 - **路径别名**: 使用 `@/` 简化导入路径

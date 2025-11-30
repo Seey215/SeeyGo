@@ -32,14 +32,14 @@ export const TaskForm = forwardRef<TaskFormRef, TaskFormProps>(function TaskForm
   const { categories } = useCategories();
 
   // 根据视图类型获取默认值
-  const getDefaultValues = () => {
+  const getDefaultValues = (): { dueDate?: string; priority?: Priority } => {
     const today = new Date();
     today.setHours(23, 59, 59, 999); // 设置为今天的结束时间
 
     switch (defaultViewType) {
       case 'today':
         return {
-          dueDate: today,
+          dueDate: today.toISOString(),
           priority: 'medium' as Priority, // 今日任务默认为中优先级
         };
       case 'important':
@@ -194,8 +194,8 @@ export const TaskForm = forwardRef<TaskFormRef, TaskFormProps>(function TaskForm
       {/* 截止日期 */}
       <DatePicker
         label="截止日期"
-        value={formData.dueDate}
-        onChange={date => setFormData(prev => ({ ...prev, dueDate: date }))}
+        value={formData.dueDate ? new Date(formData.dueDate) : undefined}
+        onChange={date => setFormData(prev => ({ ...prev, dueDate: date?.toISOString() }))}
         fullWidth
         minDate={new Date()}
       />

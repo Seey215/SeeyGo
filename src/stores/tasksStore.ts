@@ -5,7 +5,7 @@
 
 import { create } from 'zustand';
 import { logger } from '@/lib/logger';
-import type { Task } from '@/lib/types';
+import type { Task } from '@/types';
 import { STORAGE_KEYS, storage } from '@/utils/storage';
 
 interface TasksState {
